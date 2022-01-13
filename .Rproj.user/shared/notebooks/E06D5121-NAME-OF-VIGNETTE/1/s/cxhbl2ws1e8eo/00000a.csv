@@ -1,0 +1,5 @@
+"0","  InteRD1<-InteRD.predict.prop(InteRD.output=InteRD.output)
+"
+"2","Error in InteRD.predict.prop(InteRD.output = InteRD.output) : 
+  object 'InteRD.output' not found
+"
