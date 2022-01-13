@@ -1,13 +1,19 @@
 "0","#load
-library(MultiRD)
 "
+"2","Warning messages:
+"
+"2","1: "
+"2","In eval(parse_only(paste(""alist("", quote_label(params), "")""))) :"
 "2","
-Attaching package: ‘MultiRD’
-
+ "
+"2"," restarting interrupted promise evaluation
 "
-"2","The following objects are masked from ‘package:InteRD’:
-
-    estimate.geneprofile, evaluate, generateBulk, poolcells,
-    pop.ct.prop.scRNA, pop.ct.prop.subj, testset
-
+"2","2: "
+"2","In eval(parse_only(paste(""alist("", quote_label(params), "")""))) :"
+"2","
+ "
+"2"," internal error -3 in R_decompress1
+"
+"0","library(InteRD)"
+"2","Error in library(InteRD) : there is no package called ‘InteRD’
 "
