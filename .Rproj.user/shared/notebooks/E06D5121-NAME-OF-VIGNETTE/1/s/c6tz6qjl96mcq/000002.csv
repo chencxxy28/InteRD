@@ -1,0 +1,13 @@
+"0","#load
+library(MultiRD)
+"
+"2","
+Attaching package: ‘MultiRD’
+
+"
+"2","The following objects are masked from ‘package:InteRD’:
+
+    estimate.geneprofile, evaluate, generateBulk, poolcells,
+    pop.ct.prop.scRNA, pop.ct.prop.subj, testset
+
+"
