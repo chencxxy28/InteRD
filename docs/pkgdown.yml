@@ -1,0 +1,7 @@
+pandoc: 2.11.4
+pkgdown: 2.0.1
+pkgdown_sha: ~
+articles:
+  NAME-OF-VIGNETTE: NAME-OF-VIGNETTE.html
+last_built: 2022-01-13T04:11Z
+
