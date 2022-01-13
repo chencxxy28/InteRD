@@ -23,6 +23,7 @@ In this tutorial, we use SCDC ([Dong et al. (2021)](https://academic.oup.com/bib
 ```{r}
 #load
 library(InteRD)
+library(SCDC)
 ```
 
 ## Simulation Studies
