@@ -92,18 +92,24 @@ InteRD.predict.prop<-function(InteRD.output)
 
 
 #evaluation
+#'@title Evaluation function for estimated cell type proportions
+#'@description Several evaluation metrics are provided, such as mean absolute deviance (MAD), kental tau correlation coefficiengt (Ken), Pearson correlation coefficient (Pearson), given true cell type proportions.
+#'@usage evaluate(est.prop,true.prop)
+#'@param est.prop Estimated cell type proportions.
+#'@param true.prop True cell type proportions
+#'@return Cell-type level evaluations based on MAD, Ken, and Pearson (cell.type.eva), and overall evaluations based on averaged MAD, Ken, and Pearson (all.eva).
+#'@export
+
 evaluate<-function(est.prop,true.prop)
 {
     ct.mad<-apply(est.prop-true.prop,2,function (x) mean(abs(x)))
     all.mad<-mean(ct.mad)
-    ct.ccc<-unlist(sapply(1:ncol(est.prop),function(x)
+    ct.ken<-sapply(1:ncol(est.prop),function(x)
     {
-        CCC_all<-CCC(est.prop[,x],true.prop[,x])
-        CCC_all$rho[1]
+       cor(est.prop[,x],true.prop[,x],method = c("kendall"))
     }
         )
-    )
-    all.ccc<-mean(ct.ccc)
+    all.ken<-mean(ct.ken)
     ct.cor<-unlist(sapply(1:ncol(est.prop),function(x)
     {
         cor(est.prop[,x],true.prop[,x])
@@ -111,8 +117,8 @@ evaluate<-function(est.prop,true.prop)
     )
     )
     all.cor<-mean(ct.cor)
-    cell.type.eva<-data.frame(ct.mad=ct.mad,ct.ccc=ct.ccc,ct.cor=ct.cor)
-    all.eva<-data.frame(all.mad=all.mad, all.ccc=all.ccc,all.cor=all.cor)
+    cell.type.eva<-data.frame(ct.mad=ct.mad,ct.ken=ct.ken,ct.cor=ct.cor)
+    all.eva<-data.frame(all.mad=all.mad, all.ken=all.ken,all.cor=all.cor)
     return(list(cell.type.eva=cell.type.eva,all.eva=all.eva))
 }
 
@@ -123,31 +129,41 @@ pop.ct.prop.subj<-function(subj.prop)
 }
 
 #to obtain population-level cell type proportions from single cell RNA-seq data
-pop.ct.prop.scRNA<-function(scRNA,cluster,sample,sep.group=F, group=NULL)
+#'@title Calculate population-level cell type proportions from single-cell data.
+#'@description Calculate population-level cell type proportions from single-cell data.
+#'@usage pop.ct.prop.scRNA(scRNA,cluster="cluster",sample="sample",cell_type_unique)
+#'@param scRNA ExpressionSet object for single-cell data.
+#'@param cluster Character string specifying the variable name for cell types. The default is "cluster".
+#'@param sample Character string specifying the variable name for subject/samples. The default is "sample".
+#'@param cell_type_unique A vector of cell types. It should match the order in list.marker.
+#'@return Population-level cell type proportions (pop.ct.prop) and corresponding standard deviations (pop.ct.sd).
+#'@export
+pop.ct.prop.scRNA<-function(scRNA,cluster="cluster",sample="sample",cell_type_unique)
 {
-    ct_ad<-unique(scRNA@phenoData@data[[cluster]])
-    sampleid<-unique(scRNA@phenoData@data[[sample]])
+    # ct_ad<-unique(scRNA@phenoData@data[[cluster]])
+    # sampleid<-unique(scRNA@phenoData@data[[sample]])
+    #
+    # sc_proportions<-sapply(1:length(unique(scRNA@phenoData@data[[sample]])),function (x)
+    # {
+    #     ct_x<-scRNA@phenoData@data[[cluster]][sampleid==sampleid[x]]
+    #     table(ct_x)/sum(table(ct_x))
+    # }
+    # )
 
+    sampleid<-scRNA@phenoData@data[[sample]]
+    clusterid<-scRNA@phenoData@data[[cluster]]
     sc_proportions<-sapply(1:length(unique(scRNA@phenoData@data[[sample]])),function (x)
     {
-        ct_x<-scRNA@phenoData@data[[cluster]][sampleid==sampleid[x]]
+        ct_x<-scRNA@phenoData@data[[cluster]][sampleid %in% unique(sampleid)[x] & (clusterid %in% cell_type_unique)]
         table(ct_x)/sum(table(ct_x))
     }
     )
-    sc_proportions<-t(sc_proportions[ct_ad,])
-    rownames(sc_proportions)<-sampleid
-    if (sep.group == T)
-    {
-        group_subid<-tapply(scRNA@phenoData@data[[group]], scRNA@phenoData@data[[sample]],unique)
-        group_label<-unique(group_subid)
-        output<-t(sapply(1:(length(group_label)),function (x){
-             apply(sc_proportions[names(which(group_label==group_label[x])),],2,mean)
-         }))
-        colnames(output)<-ct_ad
-        rownames(output)<-group_label
-    }else{
-        output<-apply(sc_proportions,2,mean)
-    }
-    return(pop.ct.prop=output)
+
+    sc_proportions<-t(sc_proportions[cell_type_unique,])
+
+    output.mean<-apply(sc_proportions,2,mean)
+    output.sd<-apply(sc_proportions,2,sd)
+
+    return(list(pop.ct.prop=output.mean,pop.ct.sd=output.sd))
 }
 
