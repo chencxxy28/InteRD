@@ -1,0 +1,15 @@
+title: InteRD
+url: https://chencxxy28.github.io/InteRD/
+template:
+  params:
+    bootswatch: cosmo
+
+navbar:
+  type: inverse
+  left:
+    - icon: fa-home
+      href: index.html
+    - text: "Tutorial"
+      href: articles/InteRD.html
+    - text: "References"
+      href: reference/index.html
