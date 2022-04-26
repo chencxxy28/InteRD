@@ -24,4 +24,4 @@ BiocManager::install("Biobase")
 ```
 
 # Vignettes
-Please visit [Tutorial](https://chencxxy28.github.io/InteRD/Tutorial/NAME-OF-VIGNETTE.html).
+Please visit [Tutorial](https://chencxxy28.github.io/InteRD/articles/NAME-OF-VIGNETTE.html).
