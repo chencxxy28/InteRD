@@ -10,6 +10,6 @@ navbar:
     - icon: fa-home
       href: index.html
     - text: "Tutorial"
-      href: articles/InteRD.html
-    - text: "References"
+      href: articles/NAME-OF-VIGNETTE.html
+    - text: "Functions"
       href: reference/index.html
