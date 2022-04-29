@@ -1,4 +1,5 @@
-"0","pseudo.seger$truep
+"0","pseudo.seger<-generateBulk(seger[[""sc.eset.qc""]], ct.varname = ""cluster"", sample = ""sample"", ct.sub = c(""alpha"",""beta"",""delta"",""gamma""), nbulk = 40, low_s = 0.3, upp_s = 0.7)
 "
-"1","NULL
+"2","Error in generateBulk(seger[[""sc.eset.qc""]], ct.varname = ""cluster"", sample = ""sample"",  : 
+  could not find function ""generateBulk""
 "
