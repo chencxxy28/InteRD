@@ -3,7 +3,7 @@ pkgdown: 2.0.1
 pkgdown_sha: ~
 articles:
   NAME-OF-VIGNETTE: NAME-OF-VIGNETTE.html
-last_built: 2022-04-26T02:21Z
+last_built: 2022-04-29T03:16Z
 urls:
   reference: https://chencxxy28.github.io/InteRD/reference
   article: https://chencxxy28.github.io/InteRD/articles
