@@ -13,3 +13,5 @@ navbar:
       href: articles/NAME-OF-VIGNETTE.html
     - text: "Functions"
       href: reference/index.html
+    - text: "Data"
+      href: articles/web/data.html
