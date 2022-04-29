@@ -63,7 +63,7 @@ set.seed(1234567)
   SCDC_ENSEMBLE_MAD<-SCDC:::wt_prop(weight_matrix,comb)
 
 #results based on InteRD1
-  list_marker<-readRDS("https://github.com/chencxxy28/InteRD/raw/main/vignettes/data/list_markerbaron20.rds") #get markers selected from xin et al (2016)
+  list_marker<-readRDSFromWeb("https://github.com/chencxxy28/InteRD/raw/main/vignettes/data/list_markerbaron20.rds") #get markers selected from xin et al (2016)
   lambda_option<-c(0,0.01,0.05,0.1,1,5,100)
   cell_type_unique<-c("alpha","beta","delta","gamma")
   InteRD1.output<-InteRD1(bulk.data =pseudo.seger$pseudo_eset,list_marker,cell_type_unique,comb_used=comb,lambda_option)
