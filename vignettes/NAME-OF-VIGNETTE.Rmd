@@ -137,12 +137,11 @@ InteRD2.output<-InteRD2(bulk.data=pseudo.baron$pseudo_eset,list_marker,cell_type
 InteRD2<-InteRD.predict.prop(InteRD.output=InteRD2.output)
 ```
 
-add here????
-Based on the evaluations, we can tell that InteRD2 is better than InteRD1, the InteRD estimates are all better than the existing method.
+Based on the evaluations, we can tell that InteRD-based estimates (both InteRD1 and InteRD2) are better than the existing method.
 ```{r, message=FALSE}
-evaluate(SCDC_ENSEMBLE_MAD,pseudo.seger$true_p)$all.eva
-evaluate(InteRD1,pseudo.seger$true_p)$all.eva
-evaluate(InteRD2,pseudo.seger$true_p)$all.eva
+evaluate(SCDC_ENSEMBLE_MAD,pseudo.baron$true_p)$all.eva
+evaluate(InteRD1,pseudo.baron$true_p)$all.eva
+evaluate(InteRD2,pseudo.baron$true_p)$all.eva
 ```
 
 
