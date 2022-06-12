@@ -86,10 +86,16 @@ InteRD2.output<-InteRD2(bulk.data=pseudo.seger$pseudo_eset,list_marker,cell_type
 InteRD2<-InteRD.predict.prop(InteRD.output=InteRD2.output)
 ```
 
+Note that Reference-free approach and TOAST are special cases of InteRD2. The TOAST can be run based on the function `InteRD2` by specifying `lambda_option=0`, and Reference-free approach can be run by the function `Ref_free`. The following is the demo for reference-free approach.
+```{r, message=FALSE}
+ref_free.output<-Ref_free(bulk.data=pseudo.seger$pseudo_eset,list_marker=list_marker,cell_type_unique=cell_type_unique)
+reffree<-InteRD.predict.prop(InteRD.output=ref_free.output)
+```
 
 Based on the evaluations, we can tell that InteRD2 is better than InteRD1, the InteRD estimates are all better than the existing method.
 ```{r, message=FALSE}
 evaluate(SCDC_ENSEMBLE_MAD,pseudo.seger$true_p)$all.eva
+evaluate(reffree,pseudo.seger$true_p)$all.eva
 evaluate(InteRD1,pseudo.seger$true_p)$all.eva
 evaluate(InteRD2,pseudo.seger$true_p)$all.eva
 ```
