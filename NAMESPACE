@@ -3,7 +3,7 @@
 export(InteRD.predict.prop)
 export(InteRD1)
 export(InteRD2)
-export(RF)
+export(Ref_free)
 export(evaluate)
 export(generateBulk)
 export(pop.ct.prop.scRNA)
