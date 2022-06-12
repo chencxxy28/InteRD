@@ -338,14 +338,14 @@ InteRD2<-function (bulk.data,list_marker,cell_type_unique,comb_sampled,ave_est,a
 
 #'@title A reference-free deconvolution approach
 #'@description This function provides a reference-free devonvolution framework.
-#'@usage RF(bulk.data,list_marker,cell_type_unique)
+#'@usage Ref_free(bulk.data,list_marker,cell_type_unique)
 #'@param bulk.data ExpressionSet object for a target bulk data.
 #'@param list_marker A list of pre-specified marker genes corresponding to each cell type.
 #'@param cell_type_unique A list of cell types. It should match the order in list.marker.
 #'@return Estimated cell type proportions, named est; and a goodness-of-fit value, named metrics. The smaller the better.
 #'@export
 #'
-RF<-function (bulk.data,list_marker,cell_type_unique){
+Ref_free<-function (bulk.data,list_marker,cell_type_unique){
     # bulk.eset<-pseudo.seger
     # bulk_data<-(exprs(bulk.eset))
     # marker_gene_used<-unlist(list_marker)
