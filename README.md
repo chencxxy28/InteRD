@@ -7,6 +7,7 @@
 
 # Installation
 You can install the released version of InteRD with:
+
 ```
 #install devtools if necessary
 install.packages("devtools")
@@ -19,6 +20,7 @@ library(InteRD)
 ```
 
 If [_Biobase_](https://bioconductor.org/packages/release/bioc/html/Biobase.html) package is not available, please install it first before installation of **InteRD**
+
 ```
 if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
