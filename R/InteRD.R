@@ -166,6 +166,7 @@ InteRD1<-function (bulk.data,list_marker,cell_type_unique,comb_used,lambda_optio
 #'@param lambda_option a sequence of values for the tunning parameter.
 #'@return A list containing estimated cell type proportions corresponding to each tuning value, named est; and a sequence of goodness-of-fit values corresponding to  each tuning value, named metrics. The smaller the better.
 #'@export
+#'@import ggplot2
 #'
 InteRD2<-function (bulk.data,list_marker,cell_type_unique,comb_sampled,ave_est,ave_sd,lambda_option){
     # bulk.eset<-pseudo.seger
