@@ -24,7 +24,7 @@ poolcells<-function (eset,sample)
 #'@return pseudo bulk samples ExpressionSet, and actual cell-type proportions.
 #'
 #'@export
-#'@import Biobase L1pack cowplot pheatmap pheatmap xbioc stats mgcv reshape2 Rcpp SCDC
+#'@import Biobase L1pack cowplot pheatmap pheatmap xbioc stats mgcv reshape2 Rcpp
 #'@importFrom limSolve nnls
 #'@importFrom DescTools CCC
 #generate pseudo bulk data
