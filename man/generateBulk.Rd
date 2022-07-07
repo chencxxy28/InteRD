@@ -4,7 +4,8 @@
 \alias{generateBulk}
 \title{Bulk data generation function}
 \usage{
-generateBulk(eset,ct.varname,sample,disease = NULL,ct.sub,prop_mat = NULL,nbulk = 50,samplewithRep = F,low_s = 0.3,upp_s = 0.7)
+generateBulk(eset,ct.varname,sample,disease = NULL,ct.sub,prop_mat = NULL,
+nbulk = 50,samplewithRep = F,low_s = 0.3,upp_s = 0.7)
 }
 \arguments{
 \item{eset}{ExpressionSet object for single cells.}
