@@ -1,3 +1,17 @@
+#normalize
+getCPM0 <- function(x, verbose = F){
+  if (is.null(dim(x))){
+    if (verbose){
+      message("Normalizing a vector instead of a matrix")
+    }
+    vec = as.matrix(x/sum(x))
+    vec
+  } else {
+    cpm <- t(t(x)/apply(x,2,sum))
+    cpm
+  }
+}
+
 #create the test data set
 testset<-function(eset,list.marker)
 {
