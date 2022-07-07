@@ -2,20 +2,20 @@
 % Please edit documentation in R/InteRD.R
 \name{Ref_free}
 \alias{Ref_free}
-\title{A reference-free deconvolution approach}
+\title{A reference-free deconvolution estimate}
 \usage{
 Ref_free(bulk.data,list_marker,cell_type_unique)
 }
 \arguments{
-\item{bulk.data}{ExpressionSet object for a target bulk data.}
+\item{bulk.data}{The `ExpressionSet` object for a target bulk data.}
 
 \item{list_marker}{A list of pre-specified marker genes corresponding to each cell type.}
 
-\item{cell_type_unique}{A list of cell types. It should match the order in list.marker.}
+\item{cell_type_unique}{A list of cell types. It should match the order in `list.marker`.}
 }
 \value{
-Estimated cell type proportions, named est; and a goodness-of-fit value, named metrics. The smaller the better.
+The estimated cell type proportions, named `est`; and a goodness-of-fit value, named `metrics`. The smaller the better.
 }
 \description{
-This function provides a reference-free devonvolution framework.
+This function provides a reference-free devonvolution estimate, given a list of marker genes
 }

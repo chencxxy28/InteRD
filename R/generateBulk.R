@@ -6,25 +6,26 @@ poolcells<-function (eset,sample)
     eset
 }
 
-#'@title Bulk data generation function
-#'@description Construct Pseudo bulk samples by random sampled number of cells per subject, but based on the actual numbers.
+#'@title Pseudo bulk data generation function
+#'@description This function generates a pseudo bulk samples by random sampled number of cells per subject.
 #'@usage generateBulk(eset,ct.varname,sample,disease = NULL,ct.sub,prop_mat = NULL,
 #'nbulk = 50,samplewithRep = F,low_s = 0.3,upp_s = 0.7)
-#'@param eset ExpressionSet object for single cells.
-#'@param ct.varname variable name for 'cell types'.
-#'@param sample variable name for subject/samples.
-#'@param disease indicate the health condition of subjects.
-#'@param ct.sub a subset of cell types that are selected to construct pseudo bulk samples. If NULL, then all cell types are used.
-#'@param prop_mat manually input the cell-type proportion for pseudo bulk samples.
-#'@param nbulk number of pseudo bulk samples to be constructed.
-#'@param samplewithRep logical, randomly sample single cells with replacement. Default is F.
-#'@param low_s lower supprot a for uniform distribution U[a,b].
-#'@param upp_s upper supprot b for uniform distribution U[a,b].
+#'@param eset The `ExpressionSet` object for single cells.
+#'@param ct.varname Variable name for 'cell types'.
+#'@param sample Variable name for subject/samples.
+#'@param disease Indicate the health condition of subjects.
+#'@param ct.sub A subset of cell types that are selected to construct pseudo bulk samples. If NULL, then all cell types are used.
+#'@param prop_mat Manually input the cell-type proportion for pseudo bulk samples.
+#'@param nbulk The number of pseudo bulk samples to be constructed.
+#'@param samplewithRep Logical, randomly sample single cells with replacement. Default is F.
+#'@param low_s Lower supprot a for uniform distribution U[a,b].
+#'@param upp_s Upper supprot b for uniform distribution U[a,b].
 #'
-#'@return pseudo bulk samples ExpressionSet, and actual cell-type proportions.
+#'@return Pseudo bulk samples in the format of `ExpressionSet`,
+#'and the true cell-type proportions.
 #'
 #'@export
-#'@import Biobase L1pack cowplot pheatmap pheatmap xbioc stats mgcv reshape2 Rcpp
+#'@import Biobase L1pack cowplot pheatmap pheatmap stats mgcv reshape2 Rcpp
 #'@importFrom limSolve nnls
 #'@importFrom DescTools CCC
 #generate pseudo bulk data

@@ -92,11 +92,11 @@ criteria_onegroup<-function (bulk_data, prop_used)
 }
 
 #extract estimated cell type proportions via InteRD1 and InteRD2
-#'@title Integrated and robust deconvolution
-#'@description This function provides a robust devonvolution framework to integrate information from scRNA-seq references, marker genes, and prior biological knowledge.
+#'@title Extract the estimated proportions from InteRD
+#'@description This function extract estimated cell type proportions via InteRD1 and InteRD2.
 #'@usage InteRD.predict.prop(InteRD.output)
 #'@param InteRD.output An object from InteRD1 or InteRD2.
-#'@return Estimated cell type proportions via InteRD.
+#'@return Estimated cell type proportions from InteRD.
 #'@export
 InteRD.predict.prop<-function(InteRD.output)
 {
@@ -106,12 +106,12 @@ InteRD.predict.prop<-function(InteRD.output)
 
 
 #evaluation
-#'@title Evaluation function for estimated cell type proportions
-#'@description Several evaluation metrics are provided, such as mean absolute deviance (MAD), kental tau correlation coefficiengt (Ken), Pearson correlation coefficient (Pearson), given true cell type proportions.
+#'@title Evaluation for estimated cell type proportions
+#'@description Several evaluation metrics are provided, such as mean absolute deviance (`MAD`), Kendall-tau correlation coefficient (`Ken`), Pearson correlation coefficient (`Cor`), given true cell type proportions.
 #'@usage evaluate(est.prop,true.prop)
-#'@param est.prop Estimated cell type proportions.
-#'@param true.prop True cell type proportions
-#'@return Cell-type level evaluations based on MAD, Ken, and Pearson (cell.type.eva), and overall evaluations based on averaged MAD, Ken, and Pearson (all.eva).
+#'@param est.prop The estimated cell type proportions.
+#'@param true.prop The True cell type proportions
+  #'@return Cell-type level evaluations based on MAD, Ken, and Pearson (`cell.type.eva`), and overall evaluations based on averaged MAD, Ken, and Pearson (`all.eva`).
 #'@export
 
 evaluate<-function(est.prop,true.prop)
@@ -143,14 +143,14 @@ pop.ct.prop.subj<-function(subj.prop)
 }
 
 #to obtain population-level cell type proportions from single cell RNA-seq data
-#'@title Calculate population-level cell type proportions from single-cell data.
+#'@title Calculate the population-level cell type proportions from a single-cell data.
 #'@description Calculate population-level cell type proportions from single-cell data.
 #'@usage pop.ct.prop.scRNA(scRNA,cluster="cluster",sample="sample",cell_type_unique)
-#'@param scRNA ExpressionSet object for single-cell data.
-#'@param cluster Character string specifying the variable name for cell types. The default is "cluster".
-#'@param sample Character string specifying the variable name for subject/samples. The default is "sample".
+#'@param scRNA The `ExpressionSet` object for single-cell data.
+#'@param cluster The character string specifying the variable name for cell types. The default is "cluster".
+#'@param sample The character string specifying the variable name for subject/samples. The default is "sample".
 #'@param cell_type_unique A vector of cell types. It should match the order in list.marker.
-#'@return Population-level cell type proportions (pop.ct.prop) and corresponding standard deviations (pop.ct.sd).
+#'@return The population-level cell type proportions (`pop.ct.prop`) and corresponding standard deviations (`pop.ct.sd`).
 #'@export
 pop.ct.prop.scRNA<-function(scRNA,cluster="cluster",sample="sample",cell_type_unique)
 {

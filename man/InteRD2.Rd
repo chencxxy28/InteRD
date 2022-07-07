@@ -2,12 +2,12 @@
 % Please edit documentation in R/InteRD.R
 \name{InteRD2}
 \alias{InteRD2}
-\title{Integrated and robust deconvolution}
+\title{The InteRD1 estimate}
 \usage{
 InteRD2(bulk.data,list_marker,cell_type_unique,comb_sampled,ave_est,ave_sd,lambda_option)
 }
 \arguments{
-\item{bulk.data}{ExpressionSet object for a target bulk data.}
+\item{bulk.data}{The `ExpressionSet` object for a target bulk data.}
 
 \item{list_marker}{A list of pre-specified marker genes corresponding to each cell type.}
 
@@ -19,11 +19,11 @@ InteRD2(bulk.data,list_marker,cell_type_unique,comb_sampled,ave_est,ave_sd,lambd
 
 \item{ave_sd}{A pre-specified standard deviation for cell-type proportion estimation. The default is 1 for each cell type.}
 
-\item{lambda_option}{a sequence of values for the tunning parameter.}
+\item{lambda_option}{A sequence of values for the tuning parameter.}
 }
 \value{
-A list containing estimated cell type proportions corresponding to each tuning value, named est; and a sequence of goodness-of-fit values corresponding to  each tuning value, named metrics. The smaller the better.
+A list containing estimated cell type proportions corresponding to each tuning value, named `est`; and a sequence of goodness-of-fit values corresponding to each tuning value, named `metrics`. The smaller the better.
 }
 \description{
-This function provides a robust devonvolution framework to integrate information from scRNA-seq references, marker genes, and prior biological knowledge.
+This function provides a robust deconvolution framework to integrate information from scRNA-seq references, marker genes, and prior biological knowledge.
 }

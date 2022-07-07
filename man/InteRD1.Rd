@@ -2,12 +2,12 @@
 % Please edit documentation in R/InteRD.R
 \name{InteRD1}
 \alias{InteRD1}
-\title{Reference ensemble}
+\title{The InteRD1 estimate from reference ensemble}
 \usage{
 InteRD1(bulk.data,list_marker,cell_type_unique,comb_used,lambda_option)
 }
 \arguments{
-\item{bulk.data}{ExpressionSet object for a target bulk data.}
+\item{bulk.data}{The `ExpressionSet` object for a target bulk data.}
 
 \item{list_marker}{A list of pre-specified marker genes corresponding to each cell type.}
 
@@ -15,10 +15,12 @@ InteRD1(bulk.data,list_marker,cell_type_unique,comb_used,lambda_option)
 
 \item{comb_used}{A list of pre-estimated cell type proportions based on different references.}
 
-\item{lambda_option}{a sequence of values for the tunning parameter.}
+\item{lambda_option}{A sequence of values for the tuning parameter.}
 }
 \value{
-A list containing estimated cell type proportions corresponding to each tuning value, named est; and a sequence of goodness-of-fit values corresponding to  each tuning value, named metrics. The smaller the better; and a list of weights corresponding to each tuning value, named weights_list.
+A list containing estimated cell type proportions corresponding to each tuning value, named `est`;
+and a sequence of goodness-of-fit values corresponding to each tuning value, named `metrics`.
+The smaller the better; and a list of weights corresponding to each tuning value, named `weights_list`.
 }
 \description{
 This function provides a reference-based deconvolution by resembling all estimated cell-type proportions based on each reference set.

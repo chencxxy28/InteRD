@@ -16,16 +16,18 @@ estimate.geneprofile<-function(bulk.data,gene.used,celltype.unique,cluster.ident
     X
 }
 
-#'@title Reference ensemble
+#'@title The InteRD1 estimate from reference ensemble
 #'@description This function provides a reference-based deconvolution by resembling all estimated cell-type proportions based on each reference set.
 #'@usage InteRD1(bulk.data,list_marker,cell_type_unique,comb_used,lambda_option)
-#'@param bulk.data ExpressionSet object for a target bulk data.
+#'@param bulk.data The `ExpressionSet` object for a target bulk data.
 #'@param list_marker A list of pre-specified marker genes corresponding to each cell type.
 #'@param cell_type_unique A list of cell types. It should match the order in list.marker.
 #'@param comb_used A list of pre-estimated cell type proportions based on different references.
-#'@param lambda_option a sequence of values for the tunning parameter.
+#'@param lambda_option A sequence of values for the tuning parameter.
 #'
-#'@return A list containing estimated cell type proportions corresponding to each tuning value, named est; and a sequence of goodness-of-fit values corresponding to  each tuning value, named metrics. The smaller the better; and a list of weights corresponding to each tuning value, named weights_list.
+#'@return A list containing estimated cell type proportions corresponding to each tuning value, named `est`;
+#'and a sequence of goodness-of-fit values corresponding to each tuning value, named `metrics`.
+#'The smaller the better; and a list of weights corresponding to each tuning value, named `weights_list`.
 #'@export
 #'
 InteRD1<-function (bulk.data,list_marker,cell_type_unique,comb_used,lambda_option){
@@ -154,17 +156,17 @@ InteRD1<-function (bulk.data,list_marker,cell_type_unique,comb_used,lambda_optio
 }
 
 
-#'@title Integrated and robust deconvolution
-#'@description This function provides a robust devonvolution framework to integrate information from scRNA-seq references, marker genes, and prior biological knowledge.
+#'@title The InteRD1 estimate
+#'@description This function provides a robust deconvolution framework to integrate information from scRNA-seq references, marker genes, and prior biological knowledge.
 #'@usage InteRD2(bulk.data,list_marker,cell_type_unique,comb_sampled,ave_est,ave_sd,lambda_option)
-#'@param bulk.data ExpressionSet object for a target bulk data.
+#'@param bulk.data The `ExpressionSet` object for a target bulk data.
 #'@param list_marker A list of pre-specified marker genes corresponding to each cell type.
 #'@param cell_type_unique A list of cell types. It should match the order in list.marker.
 #'@param comb_sampled A pre-specified cell type proportions for the target bulk data, which could be obtained from reference-based deconvolution approach.
 #'@param ave_est A pre-specified population-level cell type proportions, which could be obtained from single-cell RNA-seq and external expression data from different studies, species, or data types
 #'@param ave_sd  A pre-specified standard deviation for cell-type proportion estimation. The default is 1 for each cell type.
-#'@param lambda_option a sequence of values for the tunning parameter.
-#'@return A list containing estimated cell type proportions corresponding to each tuning value, named est; and a sequence of goodness-of-fit values corresponding to  each tuning value, named metrics. The smaller the better.
+#'@param lambda_option A sequence of values for the tuning parameter.
+#'@return A list containing estimated cell type proportions corresponding to each tuning value, named `est`; and a sequence of goodness-of-fit values corresponding to each tuning value, named `metrics`. The smaller the better.
 #'@export
 #'@import ggplot2
 #'
@@ -337,13 +339,13 @@ InteRD2<-function (bulk.data,list_marker,cell_type_unique,comb_sampled,ave_est,a
 }
 
 
-#'@title A reference-free deconvolution approach
-#'@description This function provides a reference-free devonvolution framework.
+#'@title A reference-free deconvolution estimate
+#'@description This function provides a reference-free deconvolution estimate, given a list of marker genes
 #'@usage Ref_free(bulk.data,list_marker,cell_type_unique)
-#'@param bulk.data ExpressionSet object for a target bulk data.
+#'@param bulk.data The `ExpressionSet` object for a target bulk data.
 #'@param list_marker A list of pre-specified marker genes corresponding to each cell type.
-#'@param cell_type_unique A list of cell types. It should match the order in list.marker.
-#'@return Estimated cell type proportions, named est; and a goodness-of-fit value, named metrics. The smaller the better.
+#'@param cell_type_unique A list of cell types. It should match the order in `list.marker`.
+#'@return The estimated cell type proportions, named `est`; and a goodness-of-fit value, named `metrics`. The smaller the better.
 #'@export
 #'
 Ref_free<-function (bulk.data,list_marker,cell_type_unique){

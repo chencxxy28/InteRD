@@ -2,21 +2,21 @@
 % Please edit documentation in R/supportingfunctions.R
 \name{pop.ct.prop.scRNA}
 \alias{pop.ct.prop.scRNA}
-\title{Calculate population-level cell type proportions from single-cell data.}
+\title{Calculate the population-level cell type proportions from a single-cell data.}
 \usage{
 pop.ct.prop.scRNA(scRNA,cluster="cluster",sample="sample",cell_type_unique)
 }
 \arguments{
-\item{scRNA}{ExpressionSet object for single-cell data.}
+\item{scRNA}{The `ExpressionSet` object for single-cell data.}
 
-\item{cluster}{Character string specifying the variable name for cell types. The default is "cluster".}
+\item{cluster}{The character string specifying the variable name for cell types. The default is "cluster".}
 
-\item{sample}{Character string specifying the variable name for subject/samples. The default is "sample".}
+\item{sample}{The character string specifying the variable name for subject/samples. The default is "sample".}
 
 \item{cell_type_unique}{A vector of cell types. It should match the order in list.marker.}
 }
 \value{
-Population-level cell type proportions (pop.ct.prop) and corresponding standard deviations (pop.ct.sd).
+The population-level cell type proportions (`pop.ct.prop`) and corresponding standard deviations (`pop.ct.sd`).
 }
 \description{
 Calculate population-level cell type proportions from single-cell data.

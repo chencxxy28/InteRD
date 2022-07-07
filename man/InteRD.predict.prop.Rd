@@ -2,7 +2,7 @@
 % Please edit documentation in R/supportingfunctions.R
 \name{InteRD.predict.prop}
 \alias{InteRD.predict.prop}
-\title{Integrated and robust deconvolution}
+\title{Extract the estimated proportions from InteRD}
 \usage{
 InteRD.predict.prop(InteRD.output)
 }
@@ -10,8 +10,8 @@ InteRD.predict.prop(InteRD.output)
 \item{InteRD.output}{An object from InteRD1 or InteRD2.}
 }
 \value{
-Estimated cell type proportions via InteRD.
+Estimated cell type proportions from InteRD.
 }
 \description{
-This function provides a robust devonvolution framework to integrate information from scRNA-seq references, marker genes, and prior biological knowledge.
+This function extract estimated cell type proportions via InteRD1 and InteRD2.
 }

@@ -2,18 +2,18 @@
 % Please edit documentation in R/supportingfunctions.R
 \name{evaluate}
 \alias{evaluate}
-\title{Evaluation function for estimated cell type proportions}
+\title{Evaluation for estimated cell type proportions}
 \usage{
 evaluate(est.prop,true.prop)
 }
 \arguments{
-\item{est.prop}{Estimated cell type proportions.}
+\item{est.prop}{The estimated cell type proportions.}
 
-\item{true.prop}{True cell type proportions}
+\item{true.prop}{The True cell type proportions}
 }
 \value{
-Cell-type level evaluations based on MAD, Ken, and Pearson (cell.type.eva), and overall evaluations based on averaged MAD, Ken, and Pearson (all.eva).
+Cell-type level evaluations based on MAD, Ken, and Pearson (`cell.type.eva`), and overall evaluations based on averaged MAD, Ken, and Pearson (`all.eva`).
 }
 \description{
-Several evaluation metrics are provided, such as mean absolute deviance (MAD), kental tau correlation coefficiengt (Ken), Pearson correlation coefficient (Pearson), given true cell type proportions.
+Several evaluation metrics are provided, such as mean absolute deviance (`MAD`), Kendall-tau correlation coefficient (`Ken`), Pearson correlation coefficient (`Cor`), given true cell type proportions.
 }

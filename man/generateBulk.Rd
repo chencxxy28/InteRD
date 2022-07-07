@@ -2,35 +2,36 @@
 % Please edit documentation in R/generateBulk.R
 \name{generateBulk}
 \alias{generateBulk}
-\title{Bulk data generation function}
+\title{Pseudo bulk data generation function}
 \usage{
 generateBulk(eset,ct.varname,sample,disease = NULL,ct.sub,prop_mat = NULL,
 nbulk = 50,samplewithRep = F,low_s = 0.3,upp_s = 0.7)
 }
 \arguments{
-\item{eset}{ExpressionSet object for single cells.}
+\item{eset}{The `ExpressionSet` object for single cells.}
 
-\item{ct.varname}{variable name for 'cell types'.}
+\item{ct.varname}{Variable name for 'cell types'.}
 
-\item{sample}{variable name for subject/samples.}
+\item{sample}{Variable name for subject/samples.}
 
-\item{disease}{indicate the health condition of subjects.}
+\item{disease}{Indicate the health condition of subjects.}
 
-\item{ct.sub}{a subset of cell types that are selected to construct pseudo bulk samples. If NULL, then all cell types are used.}
+\item{ct.sub}{A subset of cell types that are selected to construct pseudo bulk samples. If NULL, then all cell types are used.}
 
-\item{prop_mat}{manually input the cell-type proportion for pseudo bulk samples.}
+\item{prop_mat}{Manually input the cell-type proportion for pseudo bulk samples.}
 
-\item{nbulk}{number of pseudo bulk samples to be constructed.}
+\item{nbulk}{The number of pseudo bulk samples to be constructed.}
 
-\item{samplewithRep}{logical, randomly sample single cells with replacement. Default is F.}
+\item{samplewithRep}{Logical, randomly sample single cells with replacement. Default is F.}
 
-\item{low_s}{lower supprot a for uniform distribution U[a,b].}
+\item{low_s}{Lower supprot a for uniform distribution U[a,b].}
 
-\item{upp_s}{upper supprot b for uniform distribution U[a,b].}
+\item{upp_s}{Upper supprot b for uniform distribution U[a,b].}
 }
 \value{
-pseudo bulk samples ExpressionSet, and actual cell-type proportions.
+Pseudo bulk samples in the format of `ExpressionSet`,
+and the true cell-type proportions.
 }
 \description{
-Construct Pseudo bulk samples by random sampled number of cells per subject, but based on the actual numbers.
+This function generates a pseudo bulk samples by random sampled number of cells per subject.
 }
