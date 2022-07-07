@@ -8,7 +8,8 @@ poolcells<-function (eset,sample)
 
 #'@title Bulk data generation function
 #'@description Construct Pseudo bulk samples by random sampled number of cells per subject, but based on the actual numbers.
-#'@usage generateBulk(eset,ct.varname,sample,disease = NULL,ct.sub,prop_mat = NULL,nbulk = 50,samplewithRep = F,low_s = 0.3,upp_s = 0.7)
+#'@usage generateBulk(eset,ct.varname,sample,disease = NULL,ct.sub,prop_mat = NULL,
+#'nbulk = 50,samplewithRep = F,low_s = 0.3,upp_s = 0.7)
 #'@param eset ExpressionSet object for single cells.
 #'@param ct.varname variable name for 'cell types'.
 #'@param sample variable name for subject/samples.
