@@ -18,8 +18,8 @@ poolcells<-function (eset,sample)
 #'@param prop_mat Manually input the cell-type proportion for pseudo bulk samples.
 #'@param nbulk The number of pseudo bulk samples to be constructed.
 #'@param samplewithRep Logical, randomly sample single cells with replacement. Default is F.
-#'@param low_s Lower supprot a for uniform distribution U[a,b].
-#'@param upp_s Upper supprot b for uniform distribution U[a,b].
+#'@param low_s Lower support a for uniform distribution U[a,b].
+#'@param upp_s Upper support b for uniform distribution U[a,b].
 #'
 #'@return Pseudo bulk samples in the format of `ExpressionSet`,
 #'and the true cell-type proportions.

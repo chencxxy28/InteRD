@@ -24,9 +24,9 @@ nbulk = 50,samplewithRep = F,low_s = 0.3,upp_s = 0.7)
 
 \item{samplewithRep}{Logical, randomly sample single cells with replacement. Default is F.}
 
-\item{low_s}{Lower supprot a for uniform distribution U[a,b].}
+\item{low_s}{Lower support a for uniform distribution U[a,b].}
 
-\item{upp_s}{Upper supprot b for uniform distribution U[a,b].}
+\item{upp_s}{Upper support b for uniform distribution U[a,b].}
 }
 \value{
 Pseudo bulk samples in the format of `ExpressionSet`,
