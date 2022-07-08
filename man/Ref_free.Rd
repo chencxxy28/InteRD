@@ -17,5 +17,5 @@ Ref_free(bulk.data,list_marker,cell_type_unique)
 The estimated cell type proportions, named `est`; and a goodness-of-fit value, named `metrics`. The smaller the better.
 }
 \description{
-This function provides a reference-free devonvolution estimate, given a list of marker genes
+This function provides a reference-free deconvolution estimate, given a list of marker genes
 }

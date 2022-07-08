@@ -25,9 +25,10 @@ poolcells<-function (eset,sample)
 #'and the true cell-type proportions.
 #'
 #'@export
-#'@import Biobase L1pack cowplot pheatmap pheatmap stats mgcv reshape2 Rcpp
+#'@import L1pack cowplot pheatmap pheatmap stats mgcv reshape2 Rcpp
 #'@importFrom limSolve nnls
 #'@importFrom DescTools CCC
+#'@importFrom Biobase exprs ExpressionSet AnnotatedDataFrame
 #generate pseudo bulk data
 generateBulk <- function(eset, ct.varname, sample, disease = NULL, ct.sub,
                                prop_mat = NULL, nbulk=50, samplewithRep = F, low_s = 0.3, upp_s = 0.7){
