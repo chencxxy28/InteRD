@@ -20,15 +20,14 @@ devtools::install_github("chencxxy28/InteRD")
 
 In this tutorial, we use SCDC ([Dong et al. (2021)](https://academic.oup.com/bib/article/22/1/416/5699815)) for illustration to conduct reference-based deconvolution. 
 
-```{r,message=FALSE,eval=FALSE}
+```{r,message=FALSE}
 #load
 library(InteRD)
-library(SCDC)
 ```
 
 ## Implementation (Case study 1)
 First, read in scRNA-seq data from our website 
-```{r,message=FALSE,eval=FALSE}
+```{r,message=FALSE}
 readRDSFromWeb <- function(ref) {
   readRDS(gzcon(url(ref)))
 }
@@ -39,7 +38,7 @@ xin<-readRDSFromWeb("https://github.com/chencxxy28/Data/raw/main/data_InteRD/Xin
 
 Second, use function `generateBulk()` to create the _pseudo bulk_ samples, where `ct.varname` specifies the name of cell type clustering result variable. `sample` specifies the name of subjects information variable. `ct.sub` specifies the names of cell types used to construct _pseudo bulk_ samples. Here we provide an example where the _pseudo bulk_ samples are generated from [Segerstolpe et al. (2016)](https://www.sciencedirect.com/science/article/pii/S1550413116304363?via%3Dihub).
 
-```{r, message=FALSE,eval=FALSE}
+```{r, message=FALSE}
 set.seed(1234567)
 pseudo.seger<-generateBulk(seger[["sc.eset.qc"]], ct.varname = "cluster", sample = "sample", ct.sub = c("alpha","beta","delta","gamma"), nbulk = 40, low_s = 0.3, upp_s = 0.7)
 truep<-pseudo.seger$true_p[complete.cases(pseudo.seger$true_p),]
@@ -51,6 +50,7 @@ InteRD1 algorithm is the first step of InteRD to do multiple reference ensemble,
 
 ```{r, message=FALSE,eval=FALSE}
 set.seed(1234567)
+library(SCDC)
 ##ensemble of multiple reference sets 
 #resuts based on SCDC
   pancreas.sc <- list(baron = baron$sc.eset.qc,
@@ -63,11 +63,13 @@ set.seed(1234567)
   SCDC_ENSEMBLE_MAD<-SCDC:::wt_prop(weight_matrix,comb)
   
   # saveRDS(SCDC_ENSEMBLE_MAD,"/Users/chixiang.chen/Library/CloudStorage/OneDrive-UniversityofMarylandSchoolofMedicine/postdoc/postdoc/deconvolution/ref_based_rd/data_InteRD/SCDC_ENSEMBLE_MAD_seger.rds")
+  # saveRDS(comb,"/Users/chixiang.chen/Library/CloudStorage/OneDrive-UniversityofMarylandSchoolofMedicine/postdoc/postdoc/deconvolution/ref_based_rd/data_InteRD/comb_seger.rds")
 ```
 
-```{r, message=FALSE,eval=FALSE}
+```{r, message=FALSE}
 #results based on InteRD1
 SCDC_ENSEMBLE_MAD<-readRDSFromWeb("https://github.com/chencxxy28/Data/raw/main/data_InteRD/SCDC_ENSEMBLE_MAD_seger.rds")
+comb<-readRDSFromWeb("https://github.com/chencxxy28/Data/raw/main/data_InteRD/comb_seger.rds")
   list_marker<-readRDSFromWeb("https://github.com/chencxxy28/Data/raw/main/data_InteRD/list_markerbaron20.rds") #get markers selected from xin et al (2016)
   lambda_option<-c(0,0.01,0.05,0.1,1,5,100)
   cell_type_unique<-c("alpha","beta","delta","gamma")
@@ -77,13 +79,13 @@ SCDC_ENSEMBLE_MAD<-readRDSFromWeb("https://github.com/chencxxy28/Data/raw/main/d
 
 We provide the function `evaluate` to assess the performance of estimated proportions versus the true proportions based on mean absolute deviance (MAD, the smaller the better), Kendall correlation coefficient (Ken, the larger the better), and Pearson correlation coefficient (Cor, the larger the better).
 
-```{r, message=FALSE,eval=FALSE}
+```{r, message=FALSE}
 evaluate(SCDC_ENSEMBLE_MAD,pseudo.seger$true_p)$all.eva
 evaluate(InteRD1,pseudo.seger$true_p)$all.eva
 ```
 
 InteRD2 algorithm is the second step of InteRD to further integrate prior biological information into the deconvolution in a robust manner. The prior information is the population-level mean cell-type proportions and their corresponding standard deviations across samples. In this tutorial, we obtain this information from scRNA-seq data from [Segerstolpe et al. (2016)](https://www.sciencedirect.com/science/article/pii/S1550413116304363?via%3Dihub).
-```{r, message=FALSE,eval=FALSE}
+```{r, message=FALSE}
 ave_est = pop.ct.prop.scRNA(scRNA=seger[["sc.eset.qc"]],cell_type_unique=cell_type_unique)$pop.ct.prop
 ave_sd = pop.ct.prop.scRNA(scRNA=seger[["sc.eset.qc"]],cell_type_unique=cell_type_unique)$pop.ct.sd
 lambda_option<-c(0,seq(from=1,to=20,length=4),seq(from=30,to=100,length=4),200,500,1000000^2)
@@ -92,13 +94,13 @@ InteRD2<-InteRD.predict.prop(InteRD.output=InteRD2.output)
 ```
 
 Note that Reference-free approach and TOAST are special cases of InteRD2. The TOAST can be run based on the function `InteRD2` by specifying `lambda_option=0`, and Reference-free approach can be run by the function `Ref_free`. The following is the demo for reference-free approach.
-```{r, message=FALSE,eval=FALSE}
+```{r, message=FALSE}
 ref_free.output<-Ref_free(bulk.data=pseudo.seger$pseudo_eset,list_marker=list_marker,cell_type_unique=cell_type_unique)
 reffree<-InteRD.predict.prop(InteRD.output=ref_free.output)
 ```
 
 Based on the evaluations, we can tell that InteRD2 is better than InteRD1, the InteRD estimates are all better than the existing method.
-```{r, message=FALSE,eval=FALSE}
+```{r, message=FALSE}
 evaluate(SCDC_ENSEMBLE_MAD,pseudo.seger$true_p)$all.eva
 evaluate(reffree,pseudo.seger$true_p)$all.eva
 evaluate(InteRD1,pseudo.seger$true_p)$all.eva
@@ -130,11 +132,13 @@ set.seed(1234567)
   SCDC_ENSEMBLE_MAD<-SCDC:::wt_prop(weight_matrix,comb)
   
   # saveRDS(SCDC_ENSEMBLE_MAD,"/Users/chixiang.chen/Library/CloudStorage/OneDrive-UniversityofMarylandSchoolofMedicine/postdoc/postdoc/deconvolution/ref_based_rd/data_InteRD/SCDC_ENSEMBLE_MAD_baron.rds")
+    # saveRDS(comb,"/Users/chixiang.chen/Library/CloudStorage/OneDrive-UniversityofMarylandSchoolofMedicine/postdoc/postdoc/deconvolution/ref_based_rd/data_InteRD/comb_baron.rds")
 ```  
   
-```{r, message=FALSE,results='hide',eval=FALSE}
+```{r, message=FALSE,eval=FALSE}
 #results based on InteRD1
 SCDC_ENSEMBLE_MAD<-readRDSFromWeb("https://github.com/chencxxy28/Data/raw/main/data_InteRD/SCDC_ENSEMBLE_MAD_baron.rds")
+comb<-readRDSFromWeb("https://github.com/chencxxy28/Data/raw/main/data_InteRD/comb_baron.rds")
   list_marker<-readRDSFromWeb("https://github.com/chencxxy28/Data/raw/main/data_InteRD/list_markerbaron20.rds") #get markers selected from xin et al (2016)
   lambda_option<-c(0,0.01,0.05,0.1,1,5,100)
   cell_type_unique<-c("alpha","beta","delta","gamma")
