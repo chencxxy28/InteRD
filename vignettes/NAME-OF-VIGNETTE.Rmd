@@ -32,9 +32,9 @@ First, read in scRNA-seq data from our website
 readRDSFromWeb <- function(ref) {
   readRDS(gzcon(url(ref)))
 }
-seger <- readRDSFromWeb("https://github.com/chencxxy28/InteRD/raw/main/vignettes/data/segerstolpe.rds")
-baron <- readRDSFromWeb("https://github.com/chencxxy28/InteRD/raw/main/vignettes/data/baron.rds")
-xin<-readRDSFromWeb("https://github.com/chencxxy28/InteRD/raw/main/vignettes/data/Xin_nonD.rds")
+seger <- readRDSFromWeb("https://github.com/chencxxy28/Data/raw/main/data_InteRD/segerstolpe.rds")
+baron <- readRDSFromWeb("https://github.com/chencxxy28/Data/raw/main/data_InteRD/baron.rds")
+xin<-readRDSFromWeb("https://github.com/chencxxy28/Data/raw/main/data_InteRD/Xin_nonD.rds")
 ```
 
 Second, use function `generateBulk()` to create the _pseudo bulk_ samples, where `ct.varname` specifies the name of cell type clustering result variable. `sample` specifies the name of subjects information variable. `ct.sub` specifies the names of cell types used to construct _pseudo bulk_ samples. Here we provide an example where the _pseudo bulk_ samples are generated from [Segerstolpe et al. (2016)](https://www.sciencedirect.com/science/article/pii/S1550413116304363?via%3Dihub).
@@ -61,9 +61,14 @@ set.seed(1234567)
   comb<-SCDC_results$prop.only
   weight_matrix<-SCDC_results$w_table["mAD_Y",1:2]
   SCDC_ENSEMBLE_MAD<-SCDC:::wt_prop(weight_matrix,comb)
+  
+  # saveRDS(SCDC_ENSEMBLE_MAD,"/Users/chixiang.chen/Library/CloudStorage/OneDrive-UniversityofMarylandSchoolofMedicine/postdoc/postdoc/deconvolution/ref_based_rd/data_InteRD/SCDC_ENSEMBLE_MAD_seger.rds")
+```
 
+```{r, message=FALSE,eval=FALSE}
 #results based on InteRD1
-  list_marker<-readRDSFromWeb("https://github.com/chencxxy28/InteRD/raw/main/vignettes/data/list_markerbaron20.rds") #get markers selected from xin et al (2016)
+SCDC_ENSEMBLE_MAD<-readRDSFromWeb("https://github.com/chencxxy28/Data/raw/main/data_InteRD/SCDC_ENSEMBLE_MAD_seger.rds")
+  list_marker<-readRDSFromWeb("https://github.com/chencxxy28/Data/raw/main/data_InteRD/list_markerbaron20.rds") #get markers selected from xin et al (2016)
   lambda_option<-c(0,0.01,0.05,0.1,1,5,100)
   cell_type_unique<-c("alpha","beta","delta","gamma")
   InteRD1.output<-InteRD1(bulk.data =pseudo.seger$pseudo_eset,list_marker,cell_type_unique,comb_used=comb,lambda_option)
@@ -123,9 +128,14 @@ set.seed(1234567)
   comb<-SCDC_results$prop.only
   weight_matrix<-SCDC_results$w_table["mAD_Y",1:2]
   SCDC_ENSEMBLE_MAD<-SCDC:::wt_prop(weight_matrix,comb)
-
+  
+  # saveRDS(SCDC_ENSEMBLE_MAD,"/Users/chixiang.chen/Library/CloudStorage/OneDrive-UniversityofMarylandSchoolofMedicine/postdoc/postdoc/deconvolution/ref_based_rd/data_InteRD/SCDC_ENSEMBLE_MAD_baron.rds")
+```  
+  
+```{r, message=FALSE,results='hide',eval=FALSE}
 #results based on InteRD1
-  list_marker<-readRDSFromWeb("https://github.com/chencxxy28/InteRD/raw/main/vignettes/data/list_markerbaron20.rds") #get markers selected from xin et al (2016)
+SCDC_ENSEMBLE_MAD<-readRDSFromWeb("https://github.com/chencxxy28/Data/raw/main/data_InteRD/SCDC_ENSEMBLE_MAD_baron.rds")
+  list_marker<-readRDSFromWeb("https://github.com/chencxxy28/Data/raw/main/data_InteRD/list_markerbaron20.rds") #get markers selected from xin et al (2016)
   lambda_option<-c(0,0.01,0.05,0.1,1,5,100)
   cell_type_unique<-c("alpha","beta","delta","gamma")
   InteRD1.output<-InteRD1(bulk.data =pseudo.baron$pseudo_eset,list_marker,cell_type_unique,comb_used=comb,lambda_option)

@@ -2,8 +2,8 @@
     "sortOrder": [
         {
             "columnIndex": 2,
-            "ascending": true
+            "ascending": false
         }
     ],
-    "path": "~/OneDrive - University of Maryland School of Medicine/postdoc/postdoc/deconvolution/ref_based_rd/InteRD/R"
+    "path": "~/OneDrive - University of Maryland School of Medicine/postdoc/postdoc/deconvolution/ref_based_rd/InteRD"
 }
