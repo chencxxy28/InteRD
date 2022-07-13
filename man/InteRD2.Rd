@@ -4,7 +4,8 @@
 \alias{InteRD2}
 \title{The InteRD2 estimate}
 \usage{
-InteRD2(bulk.data,list_marker,cell_type_unique,comb_sampled,ave_est,ave_sd,lambda_option)
+InteRD2(bulk.data,list_marker,cell_type_unique,comb_sampled,ave_est,ave_sd,
+lambda_option,tol=0.0005)
 }
 \arguments{
 \item{bulk.data}{The `ExpressionSet` object for a target bulk data.}
@@ -20,12 +21,15 @@ InteRD2(bulk.data,list_marker,cell_type_unique,comb_sampled,ave_est,ave_sd,lambd
 \item{ave_sd}{A pre-specified standard deviation for cell-type proportion estimation. The default is 1 for each cell type.}
 
 \item{lambda_option}{A sequence of values for the tuning parameter.}
+
+\item{tol}{A tolerance value for convergence. The default is 0.0005.}
 }
 \value{
 A list containing estimated cell type proportions corresponding to each tuning value, named `est`; and a sequence of goodness-of-fit values corresponding to each tuning value, named `metrics`. The smaller the better.
 }
 \description{
-This function provides a robust deconvolution framework to integrate information from scRNA-seq references, marker genes, and prior biological knowledge.
+This function provides a robust deconvolution framework to integrate information from scRNA-seq references,
+marker genes, and prior biological knowledge.
 }
 \examples{
 ##read data
@@ -40,8 +44,8 @@ list_marker<-readRDSFromWeb(paste0(urlremote,"list_markerbaron20.rds"))
 lambda_option<-0
 cell_type_unique<-c("alpha","beta","delta","gamma")
 lambda_option<-10e+05
-InteRD2.output<-InteRD2(bulk.data=pseudo.seger$pseudo_eset,list_marker,
-cell_type_unique,comb_sampled=InteRD1,ave_est,ave_sd,lambda_option=lambda_option)
+InteRD2.output<-InteRD2(bulk.data=pseudo.seger$pseudo_eset,list_marker,cell_type_unique,
+comb_sampled=InteRD1,ave_est,ave_sd,lambda_option=lambda_option,tol=0.01)
 InteRD2<-InteRD.predict.prop(InteRD.output=InteRD2.output)
 
 }

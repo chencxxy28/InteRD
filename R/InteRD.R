@@ -18,12 +18,14 @@ estimate.geneprofile<-function(bulk.data,gene.used,celltype.unique,cluster.ident
 
 #'@title The InteRD1 estimate from reference ensemble
 #'@description This function provides a reference-based deconvolution by resembling all estimated cell-type proportions based on each reference set.
-#'@usage InteRD1(bulk.data,list_marker,cell_type_unique,comb_used,lambda_option)
+#'@usage InteRD1(bulk.data,list_marker,cell_type_unique,comb_used,
+#'lambda_option,tol=1e-06)
 #'@param bulk.data The `ExpressionSet` object for a target bulk data.
 #'@param list_marker A list of pre-specified marker genes corresponding to each cell type.
 #'@param cell_type_unique A list of cell types. It should match the order in list.marker.
 #'@param comb_used A list of pre-estimated cell type proportions based on different references.
 #'@param lambda_option A sequence of values for the tuning parameter.
+#'@param tol A tolerance value for convergence. The default is 1e-06
 #'
 #'@return A list containing estimated cell type proportions corresponding to each tuning value, named `est`;
 #'and a sequence of goodness-of-fit values corresponding to each tuning value, named `metrics`.
@@ -40,12 +42,12 @@ estimate.geneprofile<-function(bulk.data,gene.used,celltype.unique,cluster.ident
 #'lambda_option<-0
 #'cell_type_unique<-c("alpha","beta","delta","gamma")
 #'InteRD1.output<-InteRD1(bulk.data =pseudo.seger$pseudo_eset,list_marker,
-#'cell_type_unique,comb_used=comb,lambda_option)
+#'cell_type_unique,comb_used=comb,lambda_option,tol=1e-02)
 #'InteRD1<-InteRD.predict.prop(InteRD.output=InteRD1.output)
 #'
 #'@export
 #'
-InteRD1<-function (bulk.data,list_marker,cell_type_unique,comb_used,lambda_option){
+InteRD1<-function (bulk.data,list_marker,cell_type_unique,comb_used,lambda_option,tol=1e-06){
     # bulk.eset<-pseudo.seger
     # bulk_data<-(exprs(bulk.eset))
     # marker_gene_used<-unlist(list_marker)
@@ -151,7 +153,7 @@ InteRD1<-function (bulk.data,list_marker,cell_type_unique,comb_used,lambda_optio
                 prop_new<-prop_new+prop_new_i
             }
 
-            if(sum(abs(weights_new-weights_old))<1e-06)
+            if(sum(abs(weights_new-weights_old))<tol)
             {break}else{
                 prop_old<-prop_new
                 weights_old<-weights_new
@@ -172,8 +174,10 @@ InteRD1<-function (bulk.data,list_marker,cell_type_unique,comb_used,lambda_optio
 
 
 #'@title The InteRD2 estimate
-#'@description This function provides a robust deconvolution framework to integrate information from scRNA-seq references, marker genes, and prior biological knowledge.
-#'@usage InteRD2(bulk.data,list_marker,cell_type_unique,comb_sampled,ave_est,ave_sd,lambda_option)
+#'@description This function provides a robust deconvolution framework to integrate information from scRNA-seq references,
+#'marker genes, and prior biological knowledge.
+#'@usage InteRD2(bulk.data,list_marker,cell_type_unique,comb_sampled,ave_est,ave_sd,
+#'lambda_option,tol=0.0005)
 #'@param bulk.data The `ExpressionSet` object for a target bulk data.
 #'@param list_marker A list of pre-specified marker genes corresponding to each cell type.
 #'@param cell_type_unique A list of cell types. It should match the order in list.marker.
@@ -181,6 +185,7 @@ InteRD1<-function (bulk.data,list_marker,cell_type_unique,comb_used,lambda_optio
 #'@param ave_est A pre-specified population-level cell type proportions, which could be obtained from single-cell RNA-seq and external expression data from different studies, species, or data types
 #'@param ave_sd  A pre-specified standard deviation for cell-type proportion estimation. The default is 1 for each cell type.
 #'@param lambda_option A sequence of values for the tuning parameter.
+#'@param tol A tolerance value for convergence. The default is 0.0005.
 #'@return A list containing estimated cell type proportions corresponding to each tuning value, named `est`; and a sequence of goodness-of-fit values corresponding to each tuning value, named `metrics`. The smaller the better.
 #'
 #'@examples
@@ -196,14 +201,14 @@ InteRD1<-function (bulk.data,list_marker,cell_type_unique,comb_used,lambda_optio
 #'lambda_option<-0
 #'cell_type_unique<-c("alpha","beta","delta","gamma")
 #'lambda_option<-10e+05
-#'InteRD2.output<-InteRD2(bulk.data=pseudo.seger$pseudo_eset,list_marker,
-#'cell_type_unique,comb_sampled=InteRD1,ave_est,ave_sd,lambda_option=lambda_option)
+#'InteRD2.output<-InteRD2(bulk.data=pseudo.seger$pseudo_eset,list_marker,cell_type_unique,
+#'comb_sampled=InteRD1,ave_est,ave_sd,lambda_option=lambda_option,tol=0.01)
 #'InteRD2<-InteRD.predict.prop(InteRD.output=InteRD2.output)
 #'
 #'@export
 #'@import ggplot2
 #'
-InteRD2<-function (bulk.data,list_marker,cell_type_unique,comb_sampled,ave_est,ave_sd,lambda_option){
+InteRD2<-function (bulk.data,list_marker,cell_type_unique,comb_sampled,ave_est,ave_sd,lambda_option,tol=0.0005){
     # bulk.eset<-pseudo.seger
     # bulk_data<-(exprs(bulk.eset))
     # marker_gene_used<-unlist(list_marker)
@@ -351,7 +356,7 @@ InteRD2<-function (bulk.data,list_marker,cell_type_unique,comb_sampled,ave_est,a
                 #print(x)
             })
             )
-            if(mean(abs(prop_new[,1:length(ct.sub)]-prop_old))<0.0005 | iter>1000)
+            if(mean(abs(prop_new[,1:length(ct.sub)]-prop_old))<tol | iter>1000)
             {
                 break
             }else{

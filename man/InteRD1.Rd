@@ -4,7 +4,8 @@
 \alias{InteRD1}
 \title{The InteRD1 estimate from reference ensemble}
 \usage{
-InteRD1(bulk.data,list_marker,cell_type_unique,comb_used,lambda_option)
+InteRD1(bulk.data,list_marker,cell_type_unique,comb_used,
+lambda_option,tol=1e-06)
 }
 \arguments{
 \item{bulk.data}{The `ExpressionSet` object for a target bulk data.}
@@ -16,6 +17,8 @@ InteRD1(bulk.data,list_marker,cell_type_unique,comb_used,lambda_option)
 \item{comb_used}{A list of pre-estimated cell type proportions based on different references.}
 
 \item{lambda_option}{A sequence of values for the tuning parameter.}
+
+\item{tol}{A tolerance value for convergence. The default is 1e-06}
 }
 \value{
 A list containing estimated cell type proportions corresponding to each tuning value, named `est`;
@@ -36,7 +39,7 @@ list_marker<-readRDSFromWeb(paste0(urlremote,"list_markerbaron20.rds"))
 lambda_option<-0
 cell_type_unique<-c("alpha","beta","delta","gamma")
 InteRD1.output<-InteRD1(bulk.data =pseudo.seger$pseudo_eset,list_marker,
-cell_type_unique,comb_used=comb,lambda_option)
+cell_type_unique,comb_used=comb,lambda_option,tol=1e-02)
 InteRD1<-InteRD.predict.prop(InteRD.output=InteRD1.output)
 
 }
