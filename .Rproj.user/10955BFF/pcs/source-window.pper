@@ -4,15 +4,15 @@
             "ordinal": 1,
             "x": 541,
             "y": 25,
-            "width": 204,
-            "height": 264
+            "width": 136,
+            "height": 176
         },
         "wmk0qgec6wj6a": {
             "ordinal": 2,
-            "x": -1102,
-            "y": 175,
-            "width": 538,
-            "height": 487
+            "x": -1060,
+            "y": 115,
+            "width": 359,
+            "height": 325
         }
     }
 }

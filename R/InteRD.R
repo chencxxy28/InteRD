@@ -41,7 +41,7 @@ estimate.geneprofile<-function(bulk.data,gene.used,celltype.unique,cluster.ident
 #'list_marker<-readRDSFromWeb(paste0(urlremote,"list_markerbaron20.rds"))
 #'lambda_option<-0
 #'cell_type_unique<-c("alpha","beta","delta","gamma")
-#'InteRD1.output<-InteRD1(bulk.data =pseudo.seger@assayData[["exprs"]],list_marker,
+#'InteRD1.output<-InteRD1(bulk.data =pseudo.seger,list_marker,
 #'cell_type_unique,comb_used=comb,lambda_option,tol=1e-02)
 #'InteRD1<-InteRD.predict.prop(InteRD.output=InteRD1.output)
 #'
