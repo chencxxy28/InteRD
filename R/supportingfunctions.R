@@ -103,7 +103,6 @@ criteria_onegroup<-function (bulk_data, prop_used)
 #'library(InteRD)
 #'readRDSFromWeb<-function(ref) {readRDS(gzcon(url(ref)))}
 #'urlremote<-"https://github.com/chencxxy28/Data/raw/main/data_InteRD/"
-#'pseudo.seger<-readRDSFromWeb(paste0(urlremote,"pseudo.seger.rds"))
 #'InteRD1.output<-readRDSFromWeb(paste0(urlremote,"InteRD1.output.rds"))
 #'lambda_option<-0
 #'cell_type_unique<-c("alpha","beta","delta","gamma")
@@ -131,8 +130,9 @@ InteRD.predict.prop<-function(InteRD.output)
 #'readRDSFromWeb<-function(ref) {readRDS(gzcon(url(ref)))}
 #'urlremote<-"https://github.com/chencxxy28/Data/raw/main/data_InteRD/"
 #'pseudo.seger<-readRDSFromWeb(paste0(urlremote,"pseudo.seger.rds"))
+#'true_p<-readRDSFromWeb(paste0(urlremote,"true_p.rds"))
 #'SCDC_ENSEMBLE_MAD<-readRDSFromWeb(paste0(urlremote,"SCDC_ENSEMBLE_MAD_seger.rds"))
-#'evaluate(SCDC_ENSEMBLE_MAD,pseudo.seger$true_p)$all.eva
+#'evaluate(SCDC_ENSEMBLE_MAD,true_p)$all.eva
 #'@export
 
 evaluate<-function(est.prop,true.prop)

@@ -20,7 +20,6 @@ This function extract estimated cell type proportions via InteRD1 and InteRD2.
 library(InteRD)
 readRDSFromWeb<-function(ref) {readRDS(gzcon(url(ref)))}
 urlremote<-"https://github.com/chencxxy28/Data/raw/main/data_InteRD/"
-pseudo.seger<-readRDSFromWeb(paste0(urlremote,"pseudo.seger.rds"))
 InteRD1.output<-readRDSFromWeb(paste0(urlremote,"InteRD1.output.rds"))
 lambda_option<-0
 cell_type_unique<-c("alpha","beta","delta","gamma")

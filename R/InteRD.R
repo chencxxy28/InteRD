@@ -41,7 +41,7 @@ estimate.geneprofile<-function(bulk.data,gene.used,celltype.unique,cluster.ident
 #'list_marker<-readRDSFromWeb(paste0(urlremote,"list_markerbaron20.rds"))
 #'lambda_option<-0
 #'cell_type_unique<-c("alpha","beta","delta","gamma")
-#'InteRD1.output<-InteRD1(bulk.data =pseudo.seger$pseudo_eset,list_marker,
+#'InteRD1.output<-InteRD1(bulk.data =pseudo.seger@assayData[["exprs"]],list_marker,
 #'cell_type_unique,comb_used=comb,lambda_option,tol=1e-02)
 #'InteRD1<-InteRD.predict.prop(InteRD.output=InteRD1.output)
 #'
@@ -201,7 +201,7 @@ InteRD1<-function (bulk.data,list_marker,cell_type_unique,comb_used,lambda_optio
 #'lambda_option<-0
 #'cell_type_unique<-c("alpha","beta","delta","gamma")
 #'lambda_option<-10e+05
-#'InteRD2.output<-InteRD2(bulk.data=pseudo.seger$pseudo_eset,list_marker,cell_type_unique,
+#'InteRD2.output<-InteRD2(bulk.data=pseudo.seger,list_marker,cell_type_unique,
 #'comb_sampled=InteRD1,ave_est,ave_sd,lambda_option=lambda_option,tol=0.01)
 #'InteRD2<-InteRD.predict.prop(InteRD.output=InteRD2.output)
 #'
@@ -394,7 +394,7 @@ InteRD2<-function (bulk.data,list_marker,cell_type_unique,comb_sampled,ave_est,a
 #'pseudo.seger<-readRDSFromWeb(paste0(urlremote,"pseudo.seger.rds"))
 #'list_marker<-readRDSFromWeb(paste0(urlremote,"list_markerbaron20.rds"))
 #'cell_type_unique<-c("alpha","beta","delta","gamma")
-#'ref_free.output<-Ref_free(bulk.data=pseudo.seger$pseudo_eset,list_marker=list_marker,
+#'ref_free.output<-Ref_free(bulk.data=pseudo.seger,list_marker=list_marker,
 #'cell_type_unique=cell_type_unique,tol=0.01) #make tol=0.001
 #'reffree<-InteRD.predict.prop(InteRD.output=ref_free.output)
 #'

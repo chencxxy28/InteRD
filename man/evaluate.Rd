@@ -23,6 +23,7 @@ library(InteRD)
 readRDSFromWeb<-function(ref) {readRDS(gzcon(url(ref)))}
 urlremote<-"https://github.com/chencxxy28/Data/raw/main/data_InteRD/"
 pseudo.seger<-readRDSFromWeb(paste0(urlremote,"pseudo.seger.rds"))
+true_p<-readRDSFromWeb(paste0(urlremote,"true_p.rds"))
 SCDC_ENSEMBLE_MAD<-readRDSFromWeb(paste0(urlremote,"SCDC_ENSEMBLE_MAD_seger.rds"))
-evaluate(SCDC_ENSEMBLE_MAD,pseudo.seger$true_p)$all.eva
+evaluate(SCDC_ENSEMBLE_MAD,true_p)$all.eva
 }

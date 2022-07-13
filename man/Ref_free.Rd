@@ -29,7 +29,7 @@ urlremote<-"https://github.com/chencxxy28/Data/raw/main/data_InteRD/"
 pseudo.seger<-readRDSFromWeb(paste0(urlremote,"pseudo.seger.rds"))
 list_marker<-readRDSFromWeb(paste0(urlremote,"list_markerbaron20.rds"))
 cell_type_unique<-c("alpha","beta","delta","gamma")
-ref_free.output<-Ref_free(bulk.data=pseudo.seger$pseudo_eset,list_marker=list_marker,
+ref_free.output<-Ref_free(bulk.data=pseudo.seger,list_marker=list_marker,
 cell_type_unique=cell_type_unique,tol=0.01) #make tol=0.001
 reffree<-InteRD.predict.prop(InteRD.output=ref_free.output)
 

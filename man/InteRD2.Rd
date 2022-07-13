@@ -44,7 +44,7 @@ list_marker<-readRDSFromWeb(paste0(urlremote,"list_markerbaron20.rds"))
 lambda_option<-0
 cell_type_unique<-c("alpha","beta","delta","gamma")
 lambda_option<-10e+05
-InteRD2.output<-InteRD2(bulk.data=pseudo.seger$pseudo_eset,list_marker,cell_type_unique,
+InteRD2.output<-InteRD2(bulk.data=pseudo.seger,list_marker,cell_type_unique,
 comb_sampled=InteRD1,ave_est,ave_sd,lambda_option=lambda_option,tol=0.01)
 InteRD2<-InteRD.predict.prop(InteRD.output=InteRD2.output)
 
