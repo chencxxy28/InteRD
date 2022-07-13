@@ -2,7 +2,7 @@
 % Please edit documentation in R/InteRD.R
 \name{InteRD2}
 \alias{InteRD2}
-\title{The InteRD1 estimate}
+\title{The InteRD2 estimate}
 \usage{
 InteRD2(bulk.data,list_marker,cell_type_unique,comb_sampled,ave_est,ave_sd,lambda_option)
 }
@@ -26,4 +26,28 @@ A list containing estimated cell type proportions corresponding to each tuning v
 }
 \description{
 This function provides a robust deconvolution framework to integrate information from scRNA-seq references, marker genes, and prior biological knowledge.
+}
+\examples{
+##read data
+library(InteRD)
+readRDSFromWeb<-function(ref) {readRDS(gzcon(url(ref)))}
+urlremote<-"https://github.com/chencxxy28/Data/raw/main/data_InteRD/"
+pseudo.seger<-readRDSFromWeb(paste0(urlremote,"pseudo.seger.rds"))
+comb<-readRDSFromWeb(paste0(urlremote,"comb_seger.rds"))
+seger<-readRDSFromWeb(paste0(urlremote,"segerstolpe.rds"))
+list_marker<-readRDSFromWeb(paste0(urlremote,"list_markerbaron20.rds"))
+lambda_option<-0
+cell_type_unique<-c("alpha","beta","delta","gamma")
+InteRD1.output<-InteRD1(bulk.data =pseudo.seger$pseudo_eset,list_marker,
+cell_type_unique,comb_used=comb,lambda_option)
+InteRD1<-InteRD.predict.prop(InteRD.output=InteRD1.output)
+ave_est = pop.ct.prop.scRNA(scRNA=seger[["sc.eset.qc"]],
+cell_type_unique=cell_type_unique)$pop.ct.prop
+ave_sd = pop.ct.prop.scRNA(scRNA=seger[["sc.eset.qc"]],
+cell_type_unique=cell_type_unique)$pop.ct.sd
+lambda_option<-10000
+InteRD2.output<-InteRD2(bulk.data=pseudo.seger$pseudo_eset,list_marker,
+cell_type_unique,comb_sampled=InteRD1,ave_est,ave_sd,lambda_option=lambda_option)
+InteRD2<-InteRD.predict.prop(InteRD.output=InteRD2.output)
+
 }

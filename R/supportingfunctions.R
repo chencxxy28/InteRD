@@ -1,5 +1,5 @@
 #normalize
-getCPM0 <- function(x, verbose = F){
+getCPM0 <- function(x, verbose = FALSE){
   if (is.null(dim(x))){
     if (verbose){
       message("Normalizing a vector instead of a matrix")
@@ -28,7 +28,7 @@ criteria_onegroup<-function (bulk_data, prop_used)
 {
     message("calculate criteria")
     bulk_matrix_raw<-(exprs(bulk_data))
-    find_zero_index<-which(rowSums(bulk_matrix_raw,na.rm=T)*1e5==0)
+    find_zero_index<-which(rowSums(bulk_matrix_raw,na.rm=TRUE)*1e5==0)
     if(length(find_zero_index)>1)
     {
         bulk_nozero<-getCPM0(bulk_matrix_raw[-find_zero_index,])
@@ -82,7 +82,7 @@ criteria_onegroup<-function (bulk_data, prop_used)
         #construct X
         X<-X_all[gene_used_final,]
 
-        values_final<-sort(abs(Y-X%*%(prop_new_test[x,])),decreasing = T)[1:50]
+        values_final<-sort(abs(Y-X%*%(prop_new_test[x,])),decreasing = TRUE)[1:50]
 
         c(median(values_final),mean(values_final),sqrt(mean(values_final^2)))
         #print(x)
@@ -97,6 +97,21 @@ criteria_onegroup<-function (bulk_data, prop_used)
 #'@usage InteRD.predict.prop(InteRD.output)
 #'@param InteRD.output An object from InteRD1 or InteRD2.
 #'@return Estimated cell type proportions from InteRD.
+#'
+#'@examples
+#'##read data
+#'library(InteRD)
+#'readRDSFromWeb<-function(ref) {readRDS(gzcon(url(ref)))}
+#'urlremote<-"https://github.com/chencxxy28/Data/raw/main/data_InteRD/"
+#'pseudo.seger<-readRDSFromWeb(paste0(urlremote,"pseudo.seger.rds"))
+#'comb<-readRDSFromWeb(paste0(urlremote,"comb_seger.rds"))
+#'list_marker<-readRDSFromWeb(paste0(urlremote,"list_markerbaron20.rds"))
+#'lambda_option<-0
+#'cell_type_unique<-c("alpha","beta","delta","gamma")
+#'InteRD1.output<-InteRD1(bulk.data =pseudo.seger$pseudo_eset,list_marker,
+#'cell_type_unique,comb_used=comb,lambda_option)
+#'InteRD1<-InteRD.predict.prop(InteRD.output=InteRD1.output)
+#'
 #'@export
 InteRD.predict.prop<-function(InteRD.output)
 {
@@ -111,7 +126,16 @@ InteRD.predict.prop<-function(InteRD.output)
 #'@usage evaluate(est.prop,true.prop)
 #'@param est.prop The estimated cell type proportions.
 #'@param true.prop The True cell type proportions
-  #'@return Cell-type level evaluations based on MAD, Ken, and Pearson (`cell.type.eva`), and overall evaluations based on averaged MAD, Ken, and Pearson (`all.eva`).
+#'@return Cell-type level evaluations based on MAD, Ken, and Pearson (`cell.type.eva`), and overall evaluations based on averaged MAD, Ken, and Pearson (`all.eva`).
+#'
+#'@examples
+#'##read data
+#'library(InteRD)
+#'readRDSFromWeb<-function(ref) {readRDS(gzcon(url(ref)))}
+#'urlremote<-"https://github.com/chencxxy28/Data/raw/main/data_InteRD/"
+#'pseudo.seger<-readRDSFromWeb(paste0(urlremote,"pseudo.seger.rds"))
+#'SCDC_ENSEMBLE_MAD<-readRDSFromWeb(paste0(urlremote,"SCDC_ENSEMBLE_MAD_seger.rds"))
+#'evaluate(SCDC_ENSEMBLE_MAD,pseudo.seger$true_p)$all.eva
 #'@export
 
 evaluate<-function(est.prop,true.prop)
@@ -151,6 +175,18 @@ pop.ct.prop.subj<-function(subj.prop)
 #'@param sample The character string specifying the variable name for subject/samples. The default is "sample".
 #'@param cell_type_unique A vector of cell types. It should match the order in list.marker.
 #'@return The population-level cell type proportions (`pop.ct.prop`) and corresponding standard deviations (`pop.ct.sd`).
+#'
+#'@examples
+#'##read data
+#'library(InteRD)
+#'readRDSFromWeb<-function(ref) {readRDS(gzcon(url(ref)))}
+#'urlremote<-"https://github.com/chencxxy28/Data/raw/main/data_InteRD/"
+#'seger<-readRDSFromWeb(paste0(urlremote,"segerstolpe.rds"))
+#'cell_type_unique<-c("alpha","beta","delta","gamma")
+#'ave_est<-pop.ct.prop.scRNA(scRNA=seger[["sc.eset.qc"]],
+#'cell_type_unique=cell_type_unique)$pop.ct.prop
+#'ave_est
+#'
 #'@export
 pop.ct.prop.scRNA<-function(scRNA,cluster="cluster",sample="sample",cell_type_unique)
 {

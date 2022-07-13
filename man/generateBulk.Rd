@@ -5,7 +5,7 @@
 \title{Pseudo bulk data generation function}
 \usage{
 generateBulk(eset,ct.varname,sample,disease = NULL,ct.sub,prop_mat = NULL,
-nbulk = 50,samplewithRep = F,low_s = 0.3,upp_s = 0.7)
+nbulk = 50,samplewithRep = FALSE,low_s = 0.3,upp_s = 0.7)
 }
 \arguments{
 \item{eset}{The `ExpressionSet` object for single cells.}
@@ -34,4 +34,18 @@ and the true cell-type proportions.
 }
 \description{
 This function generates a pseudo bulk samples by random sampled number of cells per subject.
+}
+\examples{
+##read data
+library(InteRD)
+readRDSFromWeb<-function(ref) {readRDS(gzcon(url(ref)))}
+urlremote<-"https://github.com/chencxxy28/Data/raw/main/data_InteRD/"
+seger<-readRDSFromWeb(paste0(urlremote,"segerstolpe.rds"))
+
+##generate a pseudo bulk data with two samples
+set.seed(1234567)
+pseudo.seger<-generateBulk(seger[["sc.eset.qc"]], ct.varname = "cluster",
+sample = "sample", ct.sub = c("alpha","beta","delta","gamma"),
+nbulk = 2, low_s = 0.3, upp_s = 0.7)
+
 }

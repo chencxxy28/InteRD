@@ -96,6 +96,24 @@ and a sequence of goodness-of-fit values corresponding to each tuning value, nam
 The smaller the better; and a list of weights corresponding to each tuning value, named `weights_list`.</p>
     </div>
 
+    <div id="ref-examples">
+    <h2>Examples</h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">##read data</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/chencxxy28/InteRD" class="external-link">InteRD</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">readRDSFromWeb</span><span class="op">&lt;-</span><span class="kw">function</span><span class="op">(</span><span class="va">ref</span><span class="op">)</span> <span class="op">{</span><span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/gzcon.html" class="external-link">gzcon</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="va">ref</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="va">urlremote</span><span class="op">&lt;-</span><span class="st">"https://github.com/chencxxy28/Data/raw/main/data_InteRD/"</span></span></span>
+<span class="r-in"><span><span class="va">pseudo.seger</span><span class="op">&lt;-</span><span class="fu">readRDSFromWeb</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">urlremote</span>,<span class="st">"pseudo.seger.rds"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">comb</span><span class="op">&lt;-</span><span class="fu">readRDSFromWeb</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">urlremote</span>,<span class="st">"comb_seger.rds"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">list_marker</span><span class="op">&lt;-</span><span class="fu">readRDSFromWeb</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">urlremote</span>,<span class="st">"list_markerbaron20.rds"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">lambda_option</span><span class="op">&lt;-</span><span class="fl">0</span></span></span>
+<span class="r-in"><span><span class="va">cell_type_unique</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"alpha"</span>,<span class="st">"beta"</span>,<span class="st">"delta"</span>,<span class="st">"gamma"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">InteRD1.output</span><span class="op">&lt;-</span><span class="fu">InteRD1</span><span class="op">(</span>bulk.data <span class="op">=</span><span class="va">pseudo.seger</span><span class="op">$</span><span class="va">pseudo_eset</span>,<span class="va">list_marker</span>,</span></span>
+<span class="r-in"><span><span class="va">cell_type_unique</span>,comb_used<span class="op">=</span><span class="va">comb</span>,<span class="va">lambda_option</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> calculate criteria</span>
+<span class="r-in"><span><span class="va">InteRD1</span><span class="op">&lt;-</span><span class="fu"><a href="InteRD.predict.prop.html">InteRD.predict.prop</a></span><span class="op">(</span>InteRD.output<span class="op">=</span><span class="va">InteRD1.output</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+</code></pre></div>
+    </div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top"><h2 data-toc-skip>Contents</h2>
@@ -104,7 +122,7 @@ The smaller the better; and a list of weights corresponding to each tuning value
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Chixiang Chen.</p>
+  <p></p><p>Developed by Chixiang Chen, Yuk Yee Leung, Matei Lonita, Li-San Wang, Mingyao Li.</p>
 </div>
 
 <div class="pkgdown">

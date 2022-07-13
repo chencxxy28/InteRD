@@ -63,7 +63,7 @@
 
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">generateBulk</span><span class="op">(</span><span class="va">eset</span>,<span class="va">ct.varname</span>,<span class="va">sample</span>,disease <span class="op">=</span> <span class="cn">NULL</span>,<span class="va">ct.sub</span>,prop_mat <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>nbulk <span class="op">=</span> <span class="fl">50</span>,samplewithRep <span class="op">=</span> <span class="cn">F</span>,low_s <span class="op">=</span> <span class="fl">0.3</span>,upp_s <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span></span></code></pre></div>
+<span>nbulk <span class="op">=</span> <span class="fl">50</span>,samplewithRep <span class="op">=</span> <span class="cn">FALSE</span>,low_s <span class="op">=</span> <span class="fl">0.3</span>,upp_s <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -116,6 +116,27 @@
 and the true cell-type proportions.</p>
     </div>
 
+    <div id="ref-examples">
+    <h2>Examples</h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">##read data</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/chencxxy28/InteRD" class="external-link">InteRD</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">readRDSFromWeb</span><span class="op">&lt;-</span><span class="kw">function</span><span class="op">(</span><span class="va">ref</span><span class="op">)</span> <span class="op">{</span><span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/gzcon.html" class="external-link">gzcon</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="va">ref</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="va">urlremote</span><span class="op">&lt;-</span><span class="st">"https://github.com/chencxxy28/Data/raw/main/data_InteRD/"</span></span></span>
+<span class="r-in"><span><span class="va">seger</span><span class="op">&lt;-</span><span class="fu">readRDSFromWeb</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">urlremote</span>,<span class="st">"segerstolpe.rds"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##generate a pseudo bulk data with two samples</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1234567</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">pseudo.seger</span><span class="op">&lt;-</span><span class="fu">generateBulk</span><span class="op">(</span><span class="va">seger</span><span class="op">[[</span><span class="st">"sc.eset.qc"</span><span class="op">]</span><span class="op">]</span>, ct.varname <span class="op">=</span> <span class="st">"cluster"</span>,</span></span>
+<span class="r-in"><span>sample <span class="op">=</span> <span class="st">"sample"</span>, ct.sub <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"alpha"</span>,<span class="st">"beta"</span>,<span class="st">"delta"</span>,<span class="st">"gamma"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>nbulk <span class="op">=</span> <span class="fl">2</span>, low_s <span class="op">=</span> <span class="fl">0.3</span>, upp_s <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Using 4 cell types to generate pseudo bulk samples...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Generating random cell type proportions...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> generating bulk 1 from donor one...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> generating bulk 2 from donor one...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> generating expression set object for pseudo bulk sample.id...</span>
+<span class="r-in"><span></span></span>
+</code></pre></div>
+    </div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top"><h2 data-toc-skip>Contents</h2>
@@ -124,7 +145,7 @@ and the true cell-type proportions.</p>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Chixiang Chen.</p>
+  <p></p><p>Developed by Chixiang Chen, Yuk Yee Leung, Matei Lonita, Li-San Wang, Mingyao Li.</p>
 </div>
 
 <div class="pkgdown">

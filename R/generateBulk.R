@@ -9,7 +9,7 @@ poolcells<-function (eset,sample)
 #'@title Pseudo bulk data generation function
 #'@description This function generates a pseudo bulk samples by random sampled number of cells per subject.
 #'@usage generateBulk(eset,ct.varname,sample,disease = NULL,ct.sub,prop_mat = NULL,
-#'nbulk = 50,samplewithRep = F,low_s = 0.3,upp_s = 0.7)
+#'nbulk = 50,samplewithRep = FALSE,low_s = 0.3,upp_s = 0.7)
 #'@param eset The `ExpressionSet` object for single cells.
 #'@param ct.varname Variable name for 'cell types'.
 #'@param sample Variable name for subject/samples.
@@ -24,6 +24,19 @@ poolcells<-function (eset,sample)
 #'@return Pseudo bulk samples in the format of `ExpressionSet`,
 #'and the true cell-type proportions.
 #'
+#'@examples
+#'##read data
+#'library(InteRD)
+#'readRDSFromWeb<-function(ref) {readRDS(gzcon(url(ref)))}
+#'urlremote<-"https://github.com/chencxxy28/Data/raw/main/data_InteRD/"
+#'seger<-readRDSFromWeb(paste0(urlremote,"segerstolpe.rds"))
+#'
+#'##generate a pseudo bulk data with two samples
+#'set.seed(1234567)
+#'pseudo.seger<-generateBulk(seger[["sc.eset.qc"]], ct.varname = "cluster",
+#'sample = "sample", ct.sub = c("alpha","beta","delta","gamma"),
+#'nbulk = 2, low_s = 0.3, upp_s = 0.7)
+#'
 #'@export
 #'@import L1pack cowplot pheatmap pheatmap stats mgcv reshape2 Rcpp
 #'@importFrom limSolve nnls
@@ -31,7 +44,7 @@ poolcells<-function (eset,sample)
 #'@importFrom Biobase exprs ExpressionSet AnnotatedDataFrame
 #generate pseudo bulk data
 generateBulk <- function(eset, ct.varname, sample, disease = NULL, ct.sub,
-                               prop_mat = NULL, nbulk=50, samplewithRep = F, low_s = 0.3, upp_s = 0.7){
+                               prop_mat = NULL, nbulk=50, samplewithRep = FALSE, low_s = 0.3, upp_s = 0.7){
     #pool cells together
     eset <- poolcells(eset,sample)
 
@@ -52,7 +65,7 @@ generateBulk <- function(eset, ct.varname, sample, disease = NULL, ct.sub,
     k <- length(unique(ct.id))
     message(paste('Using',k,'cell types to generate pseudo bulk samples...'))
     # select donors for each pseudo bulk sample
-    pseudo_donors <- sample(sample.id, nbulk, replace = T)
+    pseudo_donors <- sample(sample.id, nbulk, replace = TRUE)
     names(pseudo_donors) <- paste("bulk",1:nbulk, sep = "_")
 
     # generate random matrix for true proportions
@@ -95,7 +108,7 @@ generateBulk <- function(eset, ct.varname, sample, disease = NULL, ct.sub,
             true.p1[is.na(true.p1)] <- 0
             true.ct[is.na(true.ct)] <- 0
         } else { #if using the user-defined proportions
-            temp.ntotal <- min(temp.ncellk / true.p1[xx,], na.rm = T)
+            temp.ntotal <- min(temp.ncellk / true.p1[xx,], na.rm = TRUE)
             if (temp.ntotal <= k){
                 message("Please check if your input prop_mat is reasonable. The number of cells of certain selected cell type might be too small.")
             }
@@ -117,7 +130,7 @@ generateBulk <- function(eset, ct.varname, sample, disease = NULL, ct.sub,
                     if (is.null(dim(temp.mat))){
                         temp.sum <- temp.mat
                     } else {
-                        temp.sum <- rowSums(temp.mat, na.rm = T) # expression sum for one cell type in this bulk, need to sum up all types.
+                        temp.sum <- rowSums(temp.mat, na.rm = TRUE) # expression sum for one cell type in this bulk, need to sum up all types.
                     }
                 }
             }

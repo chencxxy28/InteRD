@@ -17,3 +17,12 @@ Cell-type level evaluations based on MAD, Ken, and Pearson (`cell.type.eva`), an
 \description{
 Several evaluation metrics are provided, such as mean absolute deviance (`MAD`), Kendall-tau correlation coefficient (`Ken`), Pearson correlation coefficient (`Cor`), given true cell type proportions.
 }
+\examples{
+##read data
+library(InteRD)
+readRDSFromWeb<-function(ref) {readRDS(gzcon(url(ref)))}
+urlremote<-"https://github.com/chencxxy28/Data/raw/main/data_InteRD/"
+pseudo.seger<-readRDSFromWeb(paste0(urlremote,"pseudo.seger.rds"))
+SCDC_ENSEMBLE_MAD<-readRDSFromWeb(paste0(urlremote,"SCDC_ENSEMBLE_MAD_seger.rds"))
+evaluate(SCDC_ENSEMBLE_MAD,pseudo.seger$true_p)$all.eva
+}

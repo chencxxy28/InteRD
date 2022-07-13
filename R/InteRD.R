@@ -28,6 +28,21 @@ estimate.geneprofile<-function(bulk.data,gene.used,celltype.unique,cluster.ident
 #'@return A list containing estimated cell type proportions corresponding to each tuning value, named `est`;
 #'and a sequence of goodness-of-fit values corresponding to each tuning value, named `metrics`.
 #'The smaller the better; and a list of weights corresponding to each tuning value, named `weights_list`.
+#'
+#'@examples
+#'##read data
+#'library(InteRD)
+#'readRDSFromWeb<-function(ref) {readRDS(gzcon(url(ref)))}
+#'urlremote<-"https://github.com/chencxxy28/Data/raw/main/data_InteRD/"
+#'pseudo.seger<-readRDSFromWeb(paste0(urlremote,"pseudo.seger.rds"))
+#'comb<-readRDSFromWeb(paste0(urlremote,"comb_seger.rds"))
+#'list_marker<-readRDSFromWeb(paste0(urlremote,"list_markerbaron20.rds"))
+#'lambda_option<-0
+#'cell_type_unique<-c("alpha","beta","delta","gamma")
+#'InteRD1.output<-InteRD1(bulk.data =pseudo.seger$pseudo_eset,list_marker,
+#'cell_type_unique,comb_used=comb,lambda_option)
+#'InteRD1<-InteRD.predict.prop(InteRD.output=InteRD1.output)
+#'
 #'@export
 #'
 InteRD1<-function (bulk.data,list_marker,cell_type_unique,comb_used,lambda_option){
@@ -50,7 +65,7 @@ InteRD1<-function (bulk.data,list_marker,cell_type_unique,comb_used,lambda_optio
     ct.sub<-cell_type_unique
     bulk.eset<-bulk.data
     bulk_matrix_raw<-(exprs(bulk.eset))
-    find_zero_index<-which(rowSums(bulk_matrix_raw,na.rm=T)*1e5==0)
+    find_zero_index<-which(rowSums(bulk_matrix_raw,na.rm=TRUE)*1e5==0)
     if(length(find_zero_index)>0)
     {
         bulk_nozero<-getCPM0(bulk_matrix_raw[-find_zero_index,])
@@ -156,7 +171,7 @@ InteRD1<-function (bulk.data,list_marker,cell_type_unique,comb_used,lambda_optio
 }
 
 
-#'@title The InteRD1 estimate
+#'@title The InteRD2 estimate
 #'@description This function provides a robust deconvolution framework to integrate information from scRNA-seq references, marker genes, and prior biological knowledge.
 #'@usage InteRD2(bulk.data,list_marker,cell_type_unique,comb_sampled,ave_est,ave_sd,lambda_option)
 #'@param bulk.data The `ExpressionSet` object for a target bulk data.
@@ -167,6 +182,30 @@ InteRD1<-function (bulk.data,list_marker,cell_type_unique,comb_used,lambda_optio
 #'@param ave_sd  A pre-specified standard deviation for cell-type proportion estimation. The default is 1 for each cell type.
 #'@param lambda_option A sequence of values for the tuning parameter.
 #'@return A list containing estimated cell type proportions corresponding to each tuning value, named `est`; and a sequence of goodness-of-fit values corresponding to each tuning value, named `metrics`. The smaller the better.
+#'
+#'@examples
+#'##read data
+#'library(InteRD)
+#'readRDSFromWeb<-function(ref) {readRDS(gzcon(url(ref)))}
+#'urlremote<-"https://github.com/chencxxy28/Data/raw/main/data_InteRD/"
+#'pseudo.seger<-readRDSFromWeb(paste0(urlremote,"pseudo.seger.rds"))
+#'comb<-readRDSFromWeb(paste0(urlremote,"comb_seger.rds"))
+#'seger<-readRDSFromWeb(paste0(urlremote,"segerstolpe.rds"))
+#'list_marker<-readRDSFromWeb(paste0(urlremote,"list_markerbaron20.rds"))
+#'lambda_option<-0
+#'cell_type_unique<-c("alpha","beta","delta","gamma")
+#'InteRD1.output<-InteRD1(bulk.data =pseudo.seger$pseudo_eset,list_marker,
+#'cell_type_unique,comb_used=comb,lambda_option)
+#'InteRD1<-InteRD.predict.prop(InteRD.output=InteRD1.output)
+#'ave_est = pop.ct.prop.scRNA(scRNA=seger[["sc.eset.qc"]],
+#'cell_type_unique=cell_type_unique)$pop.ct.prop
+#'ave_sd = pop.ct.prop.scRNA(scRNA=seger[["sc.eset.qc"]],
+#'cell_type_unique=cell_type_unique)$pop.ct.sd
+#'lambda_option<-10000
+#'InteRD2.output<-InteRD2(bulk.data=pseudo.seger$pseudo_eset,list_marker,
+#'cell_type_unique,comb_sampled=InteRD1,ave_est,ave_sd,lambda_option=lambda_option)
+#'InteRD2<-InteRD.predict.prop(InteRD.output=InteRD2.output)
+#'
 #'@export
 #'@import ggplot2
 #'
@@ -191,7 +230,7 @@ InteRD2<-function (bulk.data,list_marker,cell_type_unique,comb_sampled,ave_est,a
     ct.sub<-cell_type_unique
     bulk.eset<-bulk.data
     bulk_matrix_raw<-(exprs(bulk.eset))
-    find_zero_index<-which(rowSums(bulk_matrix_raw,na.rm=T)*1e5==0)
+    find_zero_index<-which(rowSums(bulk_matrix_raw,na.rm=TRUE)*1e5==0)
     if(length(find_zero_index)>0)
     {
         bulk_nozero<-getCPM0(bulk_matrix_raw[-find_zero_index,])
@@ -341,14 +380,29 @@ InteRD2<-function (bulk.data,list_marker,cell_type_unique,comb_sampled,ave_est,a
 
 #'@title A reference-free deconvolution estimate
 #'@description This function provides a reference-free deconvolution estimate, given a list of marker genes
-#'@usage Ref_free(bulk.data,list_marker,cell_type_unique)
+#'@usage Ref_free(bulk.data,list_marker,cell_type_unique,tol=0.001)
 #'@param bulk.data The `ExpressionSet` object for a target bulk data.
 #'@param list_marker A list of pre-specified marker genes corresponding to each cell type.
 #'@param cell_type_unique A list of cell types. It should match the order in `list.marker`.
+#'@param tol A tolerance value for convergence. The default is 0.001.
 #'@return The estimated cell type proportions, named `est`; and a goodness-of-fit value, named `metrics`. The smaller the better.
+#'
+#'@examples
+#'##read data
+#'library(InteRD)
+#'readRDSFromWeb<-function(ref) {readRDS(gzcon(url(ref)))}
+#'urlremote<-"https://github.com/chencxxy28/Data/raw/main/data_InteRD/"
+#'pseudo.seger<-readRDSFromWeb(paste0(urlremote,"pseudo.seger.rds"))
+#'list_marker<-readRDSFromWeb(paste0(urlremote,"list_markerbaron20.rds"))
+#'cell_type_unique<-c("alpha","beta","delta","gamma")
+#'ref_free.output<-Ref_free(bulk.data=pseudo.seger$pseudo_eset,list_marker=list_marker,
+#'cell_type_unique=cell_type_unique,tol=0.01) #make tol=0.001
+#'reffree<-InteRD.predict.prop(InteRD.output=ref_free.output)
+#'
 #'@export
 #'
-Ref_free<-function (bulk.data,list_marker,cell_type_unique){
+
+Ref_free<-function (bulk.data,list_marker,cell_type_unique,tol=0.001){
     # bulk.eset<-pseudo.seger
     # bulk_data<-(exprs(bulk.eset))
     # marker_gene_used<-unlist(list_marker)
@@ -368,7 +422,7 @@ Ref_free<-function (bulk.data,list_marker,cell_type_unique){
     ct.sub<-cell_type_unique
     bulk.eset<-bulk.data
     bulk_matrix_raw<-(exprs(bulk.eset))
-    find_zero_index<-which(rowSums(bulk_matrix_raw,na.rm=T)*1e5==0)
+    find_zero_index<-which(rowSums(bulk_matrix_raw,na.rm=TRUE)*1e5==0)
     if(length(find_zero_index)>0)
     {
         bulk_nozero<-getCPM0(bulk_matrix_raw[-find_zero_index,])
@@ -470,7 +524,7 @@ Ref_free<-function (bulk.data,list_marker,cell_type_unique){
                 #print(x)
             })
             )
-            if(mean(abs(prop_new[,1:length(ct.sub)]-prop_old))<0.001 | iter>1000)
+            if(mean(abs(prop_new[,1:length(ct.sub)]-prop_old))<tol | iter>1000)
             {
                 break
             }else{

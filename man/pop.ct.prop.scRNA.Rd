@@ -21,3 +21,15 @@ The population-level cell type proportions (`pop.ct.prop`) and corresponding sta
 \description{
 Calculate population-level cell type proportions from single-cell data.
 }
+\examples{
+##read data
+library(InteRD)
+readRDSFromWeb<-function(ref) {readRDS(gzcon(url(ref)))}
+urlremote<-"https://github.com/chencxxy28/Data/raw/main/data_InteRD/"
+seger<-readRDSFromWeb(paste0(urlremote,"segerstolpe.rds"))
+cell_type_unique<-c("alpha","beta","delta","gamma")
+ave_est<-pop.ct.prop.scRNA(scRNA=seger[["sc.eset.qc"]],
+cell_type_unique=cell_type_unique)$pop.ct.prop
+ave_est
+
+}

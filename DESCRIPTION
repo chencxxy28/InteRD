@@ -2,8 +2,11 @@ Package: InteRD
 Type: Package
 Title: The Integrated and Robust Deconvolution
 Version: 0.1.0
-Author: Chixiang Chen <chencxxy@hotmail.com>
-Maintainer: Chixiang Chen <chencxxy@hotmail.com>
+Authors@R: c(person("Chixiang","Chen",email="chencxxy@hotmail.com",role=c("cre","aut")),
+        person("Yuk Yee","Leung",email="yyee@mail.med.upenn.edu",role="aut"),
+        person("Matei","Lonita",email="matei.ionita@pennmedicine.upenn.edu",role="aut"),
+        person("Li-San","Wang",email="lswang@pennmedicine.upenn.edu",role="aut"),
+        person("Mingyao","Li",email="mingyao@pennmedicine.upenn.edu",role="aut"))
 Description: We developed the Integrated and Robust Deconvolution algorithm to infer cell-type proportions from target bulk RNA-seq data. This package is able to effectively integrate deconvolution results from multiple scRNA-seq datasets and calibrates estimates from reference-based deconvolution by taking into account extra biological information as priors. Moreover, the proposed algorithm is robust to inaccurate external information imposed in the deconvolution system.
 License: Artistic-2.0
 Encoding: UTF-8

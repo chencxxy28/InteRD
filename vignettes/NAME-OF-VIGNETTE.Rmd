@@ -57,7 +57,7 @@ library(SCDC)
                       xin   = xin
   )
   SCDC_results<-SCDC_ENSEMBLE(bulk.eset = pseudo.seger$pseudo_eset, sc.eset.list = pancreas.sc, ct.varname = "cluster",
-                                sample = "sample", weight.basis = T,truep = truep, ct.sub =  c("alpha","beta","delta","gamma"), search.length = 0.02,grid.search=T)
+                                sample = "sample", weight.basis =TRUE,truep = truep, ct.sub =  c("alpha","beta","delta","gamma"), search.length = 0.02,grid.search=TRUE)
   comb<-SCDC_results$prop.only
   weight_matrix<-SCDC_results$w_table["mAD_Y",1:2]
   SCDC_ENSEMBLE_MAD<-SCDC:::wt_prop(weight_matrix,comb)
@@ -126,7 +126,7 @@ set.seed(1234567)
                       xin   = xin
   )
   SCDC_results<-SCDC_ENSEMBLE(bulk.eset = pseudo.baron$pseudo_eset, sc.eset.list = pancreas.sc, ct.varname = "cluster",
-                                sample = "sample", weight.basis = T,truep = truep, ct.sub =  c("alpha","beta","delta","gamma"), search.length = 0.02,grid.search=T)
+                                sample = "sample", weight.basis =TRUE,truep = truep, ct.sub =  c("alpha","beta","delta","gamma"), search.length = 0.02,grid.search=TRUE)
   comb<-SCDC_results$prop.only
   weight_matrix<-SCDC_results$w_table["mAD_Y",1:2]
   SCDC_ENSEMBLE_MAD<-SCDC:::wt_prop(weight_matrix,comb)
