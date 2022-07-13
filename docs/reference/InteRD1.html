@@ -62,7 +62,8 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">InteRD1</span><span class="op">(</span><span class="va">bulk.data</span>,<span class="va">list_marker</span>,<span class="va">cell_type_unique</span>,<span class="va">comb_used</span>,<span class="va">lambda_option</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">InteRD1</span><span class="op">(</span><span class="va">bulk.data</span>,<span class="va">list_marker</span>,<span class="va">cell_type_unique</span>,<span class="va">comb_used</span>,</span>
+<span><span class="va">lambda_option</span>,tol<span class="op">=</span><span class="fl">1e-06</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -86,6 +87,10 @@
 <dt>lambda_option</dt>
 <dd><p>A sequence of values for the tuning parameter.</p></dd>
 
+
+<dt>tol</dt>
+<dd><p>A tolerance value for convergence. The default is 1e-06</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
@@ -107,8 +112,8 @@ The smaller the better; and a list of weights corresponding to each tuning value
 <span class="r-in"><span><span class="va">list_marker</span><span class="op">&lt;-</span><span class="fu">readRDSFromWeb</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">urlremote</span>,<span class="st">"list_markerbaron20.rds"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">lambda_option</span><span class="op">&lt;-</span><span class="fl">0</span></span></span>
 <span class="r-in"><span><span class="va">cell_type_unique</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"alpha"</span>,<span class="st">"beta"</span>,<span class="st">"delta"</span>,<span class="st">"gamma"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">InteRD1.output</span><span class="op">&lt;-</span><span class="fu">InteRD1</span><span class="op">(</span>bulk.data <span class="op">=</span><span class="va">pseudo.seger</span><span class="op">$</span><span class="va">pseudo_eset</span>,<span class="va">list_marker</span>,</span></span>
-<span class="r-in"><span><span class="va">cell_type_unique</span>,comb_used<span class="op">=</span><span class="va">comb</span>,<span class="va">lambda_option</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">InteRD1.output</span><span class="op">&lt;-</span><span class="fu">InteRD1</span><span class="op">(</span>bulk.data <span class="op">=</span><span class="va">pseudo.seger</span>,<span class="va">list_marker</span>,</span></span>
+<span class="r-in"><span><span class="va">cell_type_unique</span>,comb_used<span class="op">=</span><span class="va">comb</span>,<span class="va">lambda_option</span>,tol<span class="op">=</span><span class="fl">1e-02</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> calculate criteria</span>
 <span class="r-in"><span><span class="va">InteRD1</span><span class="op">&lt;-</span><span class="fu"><a href="InteRD.predict.prop.html">InteRD.predict.prop</a></span><span class="op">(</span>InteRD.output<span class="op">=</span><span class="va">InteRD1.output</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
