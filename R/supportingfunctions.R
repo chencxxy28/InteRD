@@ -104,7 +104,7 @@ criteria_onegroup<-function (bulk_data, prop_used)
 #'readRDSFromWeb<-function(ref) {readRDS(gzcon(url(ref)))}
 #'urlremote<-"https://github.com/chencxxy28/Data/raw/main/data_InteRD/"
 #'pseudo.seger<-readRDSFromWeb(paste0(urlremote,"pseudo.seger.rds"))
-#'InteRD1<-readRDSFromWeb(paste0(urlremote,"InteRD1.rds"))
+#'InteRD1.output<-readRDSFromWeb(paste0(urlremote,"InteRD1.output.rds"))
 #'lambda_option<-0
 #'cell_type_unique<-c("alpha","beta","delta","gamma")
 #'InteRD1<-InteRD.predict.prop(InteRD.output=InteRD1.output)
