@@ -38,7 +38,7 @@ poolcells<-function (eset,sample)
 #'nbulk = 2, low_s = 0.3, upp_s = 0.7)
 #'
 #'@export
-#'@import L1pack cowplot pheatmap pheatmap stats mgcv reshape2 Rcpp
+#'@import cowplot pheatmap pheatmap stats mgcv reshape2 Rcpp
 #'@importFrom limSolve nnls
 #'@importFrom DescTools CCC
 #'@importFrom Biobase exprs ExpressionSet AnnotatedDataFrame
